@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>xurst's portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <link href="css/portfolio.css" rel="stylesheet">
 </head>
 <body>
@@ -11,42 +15,81 @@
   <section class="profile-section">
     <img src="https://media.discordapp.net/attachments/1204435079741448275/1325596989282586768/monopoly_man.png?ex=677c5de6&is=677b0c66&hm=25acf3b7fecc6bb1fb384bc7588059a3c8c6c78b6cd516163e5c1fc7b2e47c5e&=&format=webp&quality=lossless" alt="xurst" class="profile-img">
     <h1>xurst's portfolio</h1>
+    <a href="https://github.com/xurst" class="github-link" target="_blank">github.com/xurst</a>
+
+    <div class="social-links">
+      <a href="https://www.instagram.com/xurst1/" target="_blank" class="social-link">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <span class="social-link">
+        discord: xurst
+      </span>
+      <a href="https://buymeacoffee.com/xurst" target="_blank" class="social-link">
+        <i class="fas fa-coffee"></i>
+      </a>
+    </div>
   </section>
 
   <section class="about-section">
-    <p>hello! i'm xurst. i create weird projects for fun. none of my projects have ads or popups or anything annoying.</p>
+    <p>hello! i'm xurst. i create interesting projects for fun. most of my projects are open-source and available on github. feel free to explore, star them, review the code, fork the repositories, or even submit pull requests! (WIP)</p>
   </section>
 
   <section class="projects-section">
-    <h2>xurst's projects</h2>
+    <div class="projects-header">
+      <div class="sort-buttons">
+        <button class="sort-button" title="Sort A-Z">
+          <i class="fas fa-sort-alpha-down"></i>
+        </button>
+        <button class="sort-button sort-date" title="Sort by Date">
+          <i class="fas fa-clock"></i>
+        </button>
+      </div>
+      <h2>xurst's projects</h2>
+    </div>
     <div class="projects-grid">
-      <div class="project-card">
+      <div class="project-card" data-name="simple-memory-games" data-date="2024-01-15">
         <div class="project-header">
           <a href="https://simple-memory-games-d1097398d753.herokuapp.com/" target="_blank">simple-memory-games</a>
           <span class="click-indicator"><i class="fas fa-arrow-right"></i> click to visit</span>
         </div>
         <p>some simple memory games u can play :D</p>
+        <div class="last-updated">
+          <i class="fas fa-history"></i>
+          <span>failed to fetch data!</span>
+        </div>
       </div>
-      <div class="project-card">
+      <div class="project-card" data-name="simple-password-generator" data-date="2024-01-10">
         <div class="project-header">
           <a href="https://xurst.github.io/simple-password-generator/" target="_blank">simple-password-generator</a>
           <span class="click-indicator"><i class="fas fa-arrow-right"></i> click to visit</span>
         </div>
         <p>a simple password generator</p>
+        <div class="last-updated">
+          <i class="fas fa-history"></i>
+          <span>failed to fetch data!</span>
+        </div>
       </div>
-      <div class="project-card">
+      <div class="project-card" data-name="B1NARY" data-date="2024-01-05">
         <div class="project-header">
           <a href="https://xurst.github.io/B1NARY/" target="_blank">B1NARY</a>
           <span class="click-indicator"><i class="fas fa-arrow-right"></i> click to visit</span>
         </div>
         <p>a converter/translator for computer languages</p>
+        <div class="last-updated">
+          <i class="fas fa-history"></i>
+          <span>failed to fetch data!</span>
+        </div>
       </div>
-      <div class="project-card">
+      <div class="project-card" data-name="simple-calculator" data-date="2024-01-01">
         <div class="project-header">
           <a href="https://xurst.github.io/simple-calculator/" target="_blank">simple-calculator</a>
           <span class="click-indicator"><i class="fas fa-arrow-right"></i> click to visit</span>
         </div>
         <p>a simple calculator</p>
+        <div class="last-updated">
+          <i class="fas fa-history"></i>
+          <span>failed to fetch data!</span>
+        </div>
       </div>
     </div>
   </section>
