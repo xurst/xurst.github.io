@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const sortDateButton = document.querySelector('.sort-button.sort-date');
     const projectsGrid = document.querySelector('.projects-grid');
     let activeSort = 'alpha-asc';
-
-    // GitHub API configuration
     const GITHUB_USERNAME = 'xurst';
     const GITHUB_API_BASE = 'https://api.github.com';
+    
+    // stealing methods is so insane!!!
 
     /**
      * Formats a date string in the required format (e.g., "Jan 6, 2025")
@@ -77,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
         sortProjects(false); // Re-sort after updating dates
     }
 
-    // Project cards hover functionality
     projectCards.forEach(card => {
         const link = card.querySelector('a');
 
@@ -163,7 +162,6 @@ document.addEventListener('DOMContentLoaded', () => {
         sortProjects(true);
     });
 
-    // Initialize
     updateSortButtons(false);
-    updateAllProjects(); // Fetch and update all dates
+    updateAllProjects();
 });
