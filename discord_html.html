@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>discord</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "IBM Plex Mono", monospace;
+    }
+    body {
+      background-color: #000;
+      color: white;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+    .container {
+      text-align: center;
+    }
+    .discord-info {
+      font-size: 2rem;
+      font-weight: bold;
+      color: rgba(255, 255, 255, 0.9);
+    }
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: #333;
+      color: white;
+      border: none;
+      padding: 20px 40px;
+      border-radius: 10px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .back-button:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+<button class="back-button" onclick="window.history.back();">go back to portfolio</button>
+<div class="container">
+  <p class="discord-info">my discord: xurst</p>
+</div>
+</body>
+</html>

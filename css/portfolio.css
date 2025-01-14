@@ -25,10 +25,13 @@ body {
     border: 2px solid rgba(60, 60, 60, 0.5);
     border-radius: 13px;
     padding: 20px;
-    margin-bottom: 30px;
     text-align: center;
     backdrop-filter: blur(8px);
     transition: all 0.3s ease;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 30px;
+    height: 300px;
 }
 
 .profile-section:hover {
@@ -161,27 +164,12 @@ h1 {
 .social-links {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 1.2rem;
     margin-top: 1.5rem;
     width: 100%;
     max-width: 300px;
     margin-left: auto;
     margin-right: auto;
-}
-
-.social-link {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 1.5rem;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    position: relative;
 }
 
 .social-link:not(a) {
@@ -259,6 +247,185 @@ h1 {
     color: rgba(255, 255, 255, 0.8);
 }
 
+.about-me-section {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(60, 60, 60, 0.5);
+    border-radius: 13px;
+    padding: 30px;
+    margin-top: 30px;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.about-me-section:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+    transform: translateX(5px);
+}
+
+.about-me-section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.about-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.profile-section {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 30px;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.about-column {
+    position: relative;
+    padding: 0 20px;
+}
+
+.about-column:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -15px;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.languages-list {
+    list-style: none;
+    padding: 0;
+}
+
+.languages-list li {
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 1.5rem;
+}
+
+.social-link {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .about-column:not(:last-child)::after {
+        display: none;
+    }
+
+    .about-column {
+        padding: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding-bottom: 20px;
+    }
+
+    .about-column:last-child {
+        border-bottom: none;
+    }
+
+    .social-links {
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .social-links {
+        gap: 1rem;
+    }
+
+    .about-column {
+        padding-bottom: 15px;
+    }
+
+    .profile-section {
+        height: 265px;
+    }
+}
+
+.about-content h3 {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    width: 100%;
+}
+
+.about-description, .about-socials, .about-extras {
+    padding: 0 15px;
+}
+
+.about-socials .social-links {
+    margin: 0;
+    margin-left: -5px;
+    justify-content: flex-start;
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .about-me-section {
+        padding: 20px;
+    }
+
+    .about-content {
+        gap: 20px;
+    }
+
+    .about-description, .about-socials, .about-extras {
+        padding: 0 10px;
+    }
+
+    .about-content h3 {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-me-section {
+        padding: 15px;
+    }
+
+    .about-content {
+        gap: 15px;
+    }
+
+    .about-description, .about-socials, .about-extras {
+        padding: 0 5px;
+    }
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 15px;
@@ -284,7 +451,7 @@ h1 {
     .social-links {
         flex-direction: row;
         align-items: center;
-        gap: 1.5rem;
+        gap: 1.2rem;
     }
 
     .social-link {
