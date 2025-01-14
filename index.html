@@ -8,12 +8,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-  <link href="css/portfolio.css" rel="stylesheet">
+  <link href="css/base.css" rel="stylesheet">
+  <link href="css/components.css" rel="stylesheet">
+  <link href="css/sections.css" rel="stylesheet">
+  <link href="css/social.css" rel="stylesheet">
+  <link href="css/media-queries.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
   <section class="profile-section">
-    <img src="https://previews.dropbox.com/p/thumb/ACjWtubNDMv19k5vr7Kp7fWXzL0mmoJpmZNNlmvad-rEiriYHt2ppLFkC6l9dWuCFu6m3QaiB3s7uoL-gj4RD2b8w4UghXo-L2ji1xwFYViV6vBZZw1BlWP-9dRtox94HvF5JDzmKUkupVoqThQoPuEKyq9dhD4wO-77K_vA2TxCREbqe-vmnUROLUqCNdEojR72Egq7lIisGy14dRDPAaQYaSNvVm323ef0cip4ClN23I8afAT7tHjTBFEXv3XkdLhqFnxdRNBy_rpWwvyM_b7i6A1IzHwNLhe1fIRTnB2ZM4MqFqtSFEFNbBKaGyrR1j7KtVWhhKdGNOLAEOwwBNTj/p.png?is_prewarmed=true" alt="xurst" class="profile-img">
+    <img src="images/xurst's_pfp.png" alt="xurst" class="profile-img">
     <h1>xurst's portfolio</h1>
     <a href="https://github.com/xurst" class="github-link" target="_blank">github.com/xurst</a>
   </section>
@@ -25,7 +29,7 @@
           <i class="fas fa-sort-alpha-down"></i>
         </button>
         <button class="sort-button sort-date" title="Sort by Date">
-          <i class="fas fa-clock"></i>
+          <i class="fas fa-calendar-alt"></i>
         </button>
       </div>
       <h2>xurst's projects</h2>
@@ -36,7 +40,7 @@
           <a href="https://simple-memory-games-d1097398d753.herokuapp.com/" target="_blank">simple-memory-games</a>
           <span class="click-indicator"><i class="fas fa-arrow-right"></i> click to visit</span>
         </div>
-        <p>some simple memory games u can play :D</p>
+        <p>a simple memory game.</p>
         <div class="last-updated">
           <i class="fas fa-history"></i>
           <span>failed to fetch data!</span>
@@ -47,7 +51,7 @@
           <a href="https://xurst.github.io/simple-password-generator/" target="_blank">simple-password-generator</a>
           <span class="click-indicator"><i class="fas fa-arrow-right"></i> click to visit</span>
         </div>
-        <p>a simple password generator</p>
+        <p>a simple password generator.</p>
         <div class="last-updated">
           <i class="fas fa-history"></i>
           <span>failed to fetch data!</span>
@@ -58,7 +62,7 @@
           <a href="https://xurst.github.io/B1NARY/" target="_blank">B1NARY</a>
           <span class="click-indicator"><i class="fas fa-arrow-right"></i> click to visit</span>
         </div>
-        <p>a converter/translator for computer languages</p>
+        <p>a converter/translator for computer languages.</p>
         <div class="last-updated">
           <i class="fas fa-history"></i>
           <span>failed to fetch data!</span>
@@ -69,7 +73,7 @@
           <a href="https://xurst.github.io/simple-calculator/" target="_blank">simple-calculator</a>
           <span class="click-indicator"><i class="fas fa-arrow-right"></i> click to visit</span>
         </div>
-        <p>a simple calculator</p>
+        <p>a simple calculator.</p>
         <div class="last-updated">
           <i class="fas fa-history"></i>
           <span>failed to fetch data!</span>
@@ -80,7 +84,7 @@
           <a href="https://github.com/xurst/desktop-authenticator" target="_blank">desktop-authenticator</a>
           <span class="click-indicator"><i class="fas fa-arrow-right"></i> click to visit</span>
         </div>
-        <p>a very ugly desktop authenticator .....</p>
+        <p>a very cool desktop authenticator with trash UI.</p>
         <div class="last-updated">
           <i class="fas fa-history"></i>
           <span>failed to fetch data!</span>
@@ -94,29 +98,22 @@
     <div class="about-content">
       <div class="about-grid">
         <div class="about-column">
-          <h3>who am i</h3>
-          <p>hello! i'm xurst, a computer programmer specializing in creating apps, websites, and games, bringing unique and innovative ideas to life. most of my projects are available on github, where you can explore, star, review, fork, or even submit pull requests to my repositories. (WIP)</p>
-        </div>
-        <div class="about-column">
-          <h3>languages</h3>
-          <ul class="languages-list">
-            <li>JavaScript/TypeScript</li>
-            <li>Python</li>
-            <li>C#/C++</li>
-            <li>HTML/CSS</li>
-            <li>Lua/Luau</li>
-          </ul>
-        </div>
-        <div class="about-column">
-          <h3>extras</h3>
-          <p>more content coming soon...</p>
+          <div class="page-selector">
+            <select id="aboutSelector">
+              <option value="who">who am i</option>
+              <option value="languages">languages</option>
+            </select>
+          </div>
+          <div id="aboutContent">
+            <!-- Content will be loaded here by JavaScript -->
+          </div>
         </div>
       </div>
 
       <div class="divider"></div>
 
       <div class="about-socials">
-        <h3>connect with me</h3>
+        <h3>social links</h3>
         <div class="social-links">
           <a href="https://www.instagram.com/xurst1/" target="_blank" class="social-link">
             <i class="fab fa-instagram"></i>
@@ -132,6 +129,6 @@
     </div>
   </section>
 </div>
-<script src="src/js/portfolio.js"></script>
+<script src="src/js/main.js"></script>
 </body>
 </html>

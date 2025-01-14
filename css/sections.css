@@ -1,0 +1,185 @@
+.profile-section {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(60, 60, 60, 0.5);
+    border-radius: 13px;
+    padding: 20px;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 30px;
+    height: 300px;
+}
+
+.profile-section:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+    transform: translateX(5px);
+}
+
+.profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px solid rgba(60, 60, 60, 0.5);
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+    object-fit: cover;
+}
+
+.profile-img:hover {
+    transform: scale(1.05);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+.github-link {
+    display: block;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-size: 1rem;
+    margin-top: -0.5rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.github-link:hover {
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Projects Section */
+.projects-section h2 {
+    margin-bottom: 2rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.projects-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.projects-header h2 {
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.sort-buttons {
+    position: absolute;
+    left: 0;
+    display: flex;
+    gap: 0.5rem;
+    height: auto;
+}
+
+.last-updated {
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.last-updated i {
+    font-size: 0.9rem;
+}
+
+.project-card:hover .last-updated {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* About Section */
+.about-me-section {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(60, 60, 60, 0.5);
+    border-radius: 13px;
+    padding: 30px;
+    margin-top: 30px;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.about-me-section:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+    transform: translateX(5px);
+}
+
+.about-me-section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.about-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-bottom: 0; /* Removed the 30px margin */
+}
+
+.about-column {
+    position: relative;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.about-column p {
+    white-space: normal;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.about-column:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -15px;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.languages-list {
+    list-style: none;
+    padding: 0;
+}
+
+.languages-list li {
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.about-content h3 {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.about-description, .about-socials, .about-extras {
+    padding: 0 15px;
+}
+
+.divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    width: 100%;
+    margin: 20px 0;
+}

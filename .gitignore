@@ -18,6 +18,7 @@ yarn.lock
 *.iml
 *.iws
 .idea_modules/
+.aidigestignore
 
 # VSCode
 .vscode/
@@ -55,6 +56,11 @@ build/
 # Coverage directory
 coverage/
 .nyc_output/
+
+# Heroku
+.heroku/
+*.herokucache
+.buildpacks
 
 # Misc
 .tmp/

@@ -1,0 +1,153 @@
+.project-card {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(60, 60, 60, 0.5);
+    border-radius: 13px;
+    padding: 15px;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateX(5px);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+.project-card a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.project-card a:hover {
+    color: white;
+}
+
+.project-card p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+.click-indicator {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover .click-indicator {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.last-updated {
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.last-updated i {
+    font-size: 0.9rem;
+}
+
+.project-card:hover .last-updated {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    width: 100%;
+}
+
+/* Sort Buttons */
+.sort-buttons {
+    position: absolute;
+    left: 0;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.sort-button {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 8px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sort-button:hover {
+    color: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+}
+
+.sort-button.active {
+    color: rgba(255, 255, 255, 1);
+}
+
+/* About Section Dropdown */
+.page-selector {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.page-selector select {
+    appearance: none;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.9);
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1.1rem;
+    padding: 10px 36px 10px 14px;
+    transition: all 0.3s ease;
+}
+
+.page-selector select:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.page-selector select:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.page-selector::after {
+    content: '▼';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.6);
+    pointer-events: none;
+    font-size: 1rem;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .sort-button {
+        font-size: 2rem;
+        width: 60px;
+        height: 60px;
+        padding: 12px;
+    }
+
+    .sort-buttons {
+        gap: 1rem;
+    }
+}

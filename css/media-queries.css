@@ -1,0 +1,120 @@
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .projects-header {
+        flex-direction: row;
+        align-items: center;
+        padding-left: 140px; /* Increased padding for larger buttons */
+        position: relative;
+        margin-bottom: 2rem;
+    }
+
+    .sort-buttons {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: row;
+        gap: 1rem; /* Increased gap */
+        height: auto;
+    }
+
+    .sort-button {
+        position: relative;
+        font-size: 2rem !important; /* Much bigger icons */
+        padding: 10px !important;
+        width: 60px !important;  /* Bigger touch target */
+        height: 60px !important; /* Bigger touch target */
+        background: rgba(0, 0, 0, 0.5); /* Added background for better visibility */
+        border-radius: 50%;
+        backdrop-filter: blur(8px);
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    .project-card {
+        margin-bottom: 15px;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .about-column:not(:last-child)::after {
+        display: none;
+    }
+
+    .about-column {
+        padding: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding-bottom: 20px;
+    }
+
+    .about-column:last-child {
+        border-bottom: none;
+    }
+
+    .social-links {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .social-link {
+        width: 35px;
+        height: 35px;
+        font-size: 1.3rem;
+    }
+
+    .about-me-section {
+        padding: 20px;
+    }
+
+    .about-content {
+        gap: 20px;
+    }
+
+    .about-description, .about-socials, .about-extras {
+        padding: 0 10px;
+    }
+
+    .about-content h3 {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-me-section {
+        padding: 15px;
+    }
+
+    .about-content {
+        gap: 15px;
+    }
+
+    .about-description, .about-socials, .about-extras {
+        padding: 0 5px;
+    }
+
+    .about-column {
+        padding-bottom: 15px;
+    }
+
+    .profile-section {
+        height: 265px;
+    }
+}
