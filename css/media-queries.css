@@ -15,7 +15,7 @@
     .projects-header {
         flex-direction: row;
         align-items: center;
-        padding-left: 140px; /* Increased padding for larger buttons */
+        padding-left: 220px; /* Increased padding for larger buttons */
         position: relative;
         margin-bottom: 2rem;
     }

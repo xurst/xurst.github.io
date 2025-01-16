@@ -1,16 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const projectCards = document.querySelectorAll('.project-card');
     const projectsGrid = document.querySelector('.projects-grid');
     const aboutSelector = document.getElementById('aboutSelector');
     const aboutContent = document.getElementById('aboutContent');
     const sortAlphaButton = document.querySelector('.sort-button:not(.sort-date)');
     const sortDateButton = document.querySelector('.sort-button.sort-date');
     let activeSort = 'alpha-asc';
-    
+
     const GITHUB_USERNAME = 'xurst';
     const GITHUB_API_BASE = 'https://api.github.com';
-    
-    // About section content
+
     const aboutContentData = {
         who: `
             <h3>who am i</h3>
@@ -28,30 +26,97 @@ document.addEventListener('DOMContentLoaded', () => {
         `
     };
 
-    // Handle about section content switching
-    aboutSelector.addEventListener('change', (e) => {
-        aboutContent.innerHTML = aboutContentData[e.target.value];
-    });
+    function determineVisitType(homepage) {
+        if (!homepage) return 'github (repo)';
+        return homepage.includes(`${GITHUB_USERNAME}.github.io`) ? 'github' : 'external';
+    }
 
-    // Initialize about content
-    aboutContent.innerHTML = aboutContentData[aboutSelector.value];
+    function createProjectCard(repo) {
+        const projectUrl = repo.homepage || repo.html_url;
+        const visitType = determineVisitType(repo.homepage);
 
-    // Card hover effects
-    projectCards.forEach(card => {
-        const link = card.querySelector('a');
-        card.addEventListener('click', (e) => {
-            if (e.target !== link && link) {
-                link.click();
-            }
+        return `
+            <div class="project-card" data-name="${repo.name}" data-date="${repo.pushed_at}">
+                <div class="project-header">
+                    <a href="${projectUrl}" target="_blank">${repo.name}</a>
+                    <span class="click-indicator"><i class="fas fa-arrow-right"></i> click to visit: ${visitType}</span>
+                </div>
+                <p>${repo.description || 'no description available.'}</p>
+                <div class="last-updated">
+                    <i class="fas fa-history"></i>
+                    <span>last updated: ${formatDate(repo.pushed_at)}</span>
+                </div>
+            </div>
+        `;
+    }
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric'
+        }).toLowerCase();
+    }
+
+    async function fetchRepos() {
+        try {
+            const response = await fetch(`${GITHUB_API_BASE}/users/${GITHUB_USERNAME}/repos`);
+            if (!response.ok) throw new Error('failed to fetch repo');
+
+            const repos = await response.json();
+
+            const repoDetailsPromises = repos
+                .filter(repo => !repo.fork && repo.name !== 'xurst.github.io')
+                .map(async repo => {
+                    try {
+                        const detailResponse = await fetch(`${GITHUB_API_BASE}/repos/${GITHUB_USERNAME}/${repo.name}`);
+                        if (!detailResponse.ok) return repo;
+
+                        const details = await detailResponse.json();
+                        return {
+                            ...repo,
+                            homepage: details.homepage
+                        };
+                    } catch (error) {
+                        console.error(`error fetching details for ${repo.name}:`, error);
+                        return repo;
+                    }
+                });
+
+            const reposWithDetails = await Promise.all(repoDetailsPromises);
+
+            projectsGrid.innerHTML = '';
+            reposWithDetails.forEach(repo => {
+                projectsGrid.innerHTML += createProjectCard(repo);
+            });
+
+            addCardClickHandlers();
+            sortProjects(false);
+        } catch (error) {
+            console.error('error fetching repos:', error);
+            projectsGrid.innerHTML = '<div class="error-message">failed to load repositories. try refreshing or try again later.</div>';
+        }
+    }
+
+    function addCardClickHandlers() {
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach(card => {
+            const link = card.querySelector('a');
+            card.addEventListener('click', (e) => {
+                if (e.target !== link && link) {
+                    link.click();
+                }
+            });
         });
-    });
+    }
 
     function updateSortButtons(isDateSort) {
         if (isDateSort) {
             sortDateButton.classList.add('active');
             sortAlphaButton.classList.remove('active');
-            sortDateButton.querySelector('i').className = activeSort === 'date-desc' 
-                ? 'fas fa-calendar-alt fa-rotate-180' 
+            sortDateButton.querySelector('i').className = activeSort === 'date-desc'
+                ? 'fas fa-calendar-alt fa-rotate-180'
                 : 'fas fa-calendar-alt';
             sortAlphaButton.querySelector('i').className = 'fas fa-sort-alpha-down';
         } else {
@@ -65,86 +130,53 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function sortProjects(byDate = false) {
+        const fragment = document.createDocumentFragment();
         const cards = Array.from(projectsGrid.children);
-        
+
         cards.sort((a, b) => {
             if (byDate) {
-                const dateA = new Date(a.getAttribute('data-date'));
-                const dateB = new Date(b.getAttribute('data-date'));
-                return activeSort === 'date-desc' ? dateA - dateB : dateB - dateA;
+                const dateA = new Date(a.dataset.date);
+                const dateB = new Date(b.dataset.date);
+                return activeSort === 'date-desc' ? dateB - dateA : dateA - dateB;
             } else {
-                const nameA = a.getAttribute('data-name').toLowerCase();
-                const nameB = b.getAttribute('data-name').toLowerCase();
-                return activeSort === 'alpha-desc' 
-                    ? nameB.localeCompare(nameA) 
+                const nameA = a.dataset.name.toLowerCase();
+                const nameB = b.dataset.name.toLowerCase();
+                return activeSort === 'alpha-desc'
+                    ? nameB.localeCompare(nameA)
                     : nameA.localeCompare(nameB);
             }
         });
 
-        projectsGrid.innerHTML = '';
-        cards.forEach(card => projectsGrid.appendChild(card));
-    }
-
-    async function fetchRepoData(repoName) {
-        try {
-            const response = await fetch(`${GITHUB_API_BASE}/repos/${GITHUB_USERNAME}/${repoName}`, {
-                headers: {
-                    'Accept': 'application/vnd.github.v3+json'
-                }
-            });
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            return await response.json();
-        } catch (error) {
-            console.error(`Error fetching ${repoName}:`, error);
-            return null;
-        }
-    }
-
-    async function updateRepoData(card, repoName) {
-        const dateSpan = card.querySelector('.last-updated span');
-        try {
-            const data = await fetchRepoData(repoName);
-            if (data && data.pushed_at) {
-                const date = new Date(data.pushed_at);
-                const formattedMonth = date.toLocaleDateString('en-US', { month: 'short' }).toLowerCase();
-                const formattedDate = `${formattedMonth} ${date.getDate()}, ${date.getFullYear()}`;
-                dateSpan.textContent = `last updated: ${formattedDate}`;
-                card.setAttribute('data-date', data.pushed_at);
-            } else {
-                throw new Error('no data available');
-            }
-        } catch (error) {
-            const currentDate = new Date().toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric'
-            }).toLowerCase();
-            dateSpan.textContent = `last updated: ${currentDate}`;
-            card.setAttribute('data-date', new Date().toISOString());
-        }
-    }
-
-    async function updateAllRepos() {
-        const promises = Array.from(projectCards).map(card => {
-            const repoName = card.getAttribute('data-name');
-            return updateRepoData(card, repoName);
+        cards.forEach(card => fragment.appendChild(card));
+        requestAnimationFrame(() => {
+            projectsGrid.innerHTML = '';
+            projectsGrid.appendChild(fragment);
         });
-        await Promise.all(promises);
-        sortProjects(false);
     }
 
+    aboutSelector.addEventListener('change', (e) => {
+        aboutContent.innerHTML = aboutContentData[e.target.value];
+    });
+
+    let sortTimeout;
     sortAlphaButton.addEventListener('click', () => {
+        if (sortTimeout) clearTimeout(sortTimeout);
         activeSort = activeSort === 'alpha-asc' ? 'alpha-desc' : 'alpha-asc';
         updateSortButtons(false);
-        sortProjects(false);
+        sortTimeout = setTimeout(() => {
+            sortProjects(false);
+        }, 0);
     });
-
     sortDateButton.addEventListener('click', () => {
+        if (sortTimeout) clearTimeout(sortTimeout);
         activeSort = activeSort === 'date-asc' ? 'date-desc' : 'date-asc';
         updateSortButtons(true);
-        sortProjects(true);
+        sortTimeout = setTimeout(() => {
+            sortProjects(true);
+        }, 0);
     });
 
+    aboutContent.innerHTML = aboutContentData[aboutSelector.value];
     updateSortButtons(false);
-    updateAllRepos();
+    fetchRepos();
 });
