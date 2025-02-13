@@ -5,7 +5,7 @@ const helmet = require('helmet');
 const os = require('os');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 9000;
 
 const getLocalIP = () => {
     const interfaces = os.networkInterfaces();

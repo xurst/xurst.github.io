@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function determineVisitType(homepage) {
         if (!homepage) return 'github (repo)';
-        return homepage.includes(`${GITHUB_USERNAME}.github.io`) ? 'github' : 'external';
+        return homepage.includes(`${GITHUB_USERNAME}.github.io`) ? 'website' : 'website';
     }
 
     function createProjectCard(repo) {
