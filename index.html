@@ -1,80 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>xurst's portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-  <link href="css/base.css" rel="stylesheet">
-  <link href="css/components.css" rel="stylesheet">
-  <link href="css/sections.css" rel="stylesheet">
-  <link href="css/social.css" rel="stylesheet">
-  <link href="css/media-queries.css" rel="stylesheet">
-</head>
-<body>
-<div class="container">
-  <section class="profile-section">
-    <img src="images/xurst's_pfp.png" alt="xurst" class="profile-img">
-    <h1>xurst's portfolio</h1>
-    <a href="https://github.com/xurst" class="github-link" target="_blank">github.com/xurst</a>
-  </section>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>xurst's portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="css/base.css" rel="stylesheet" />
+    <link href="css/components.css" rel="stylesheet" />
+    <link href="css/sections.css" rel="stylesheet" />
+    <link href="css/social.css" rel="stylesheet" />
+    <link href="css/media-queries.css" rel="stylesheet" />
+    <link href="css/components/scroll-top.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <section class="profile-section">
+        <img src="images/xurst's_pfp.png" alt="xurst" class="profile-img" />
+        <h1>xurst's portfolio</h1>
+        <a href="https://github.com/xurst" class="github-link" target="_blank"
+          >github.com/xurst</a
+        >
+      </section>
 
-  <section class="projects-section">
-    <div class="projects-header">
-      <div class="sort-buttons">
-        <button class="sort-button" title="Sort A-Z">
-          <i class="fas fa-sort-alpha-down"></i>
-        </button>
-        <button class="sort-button sort-date" title="Sort by Date">
-          <i class="fas fa-calendar-alt"></i>
-        </button>
-      </div>
-      <h2>xurst's projects</h2>
-    </div>
-    <div class="projects-grid">
-      <!-- Projects will be loaded here dynamically -->
-    </div>
-  </section>
-
-  <section class="about-me-section">
-    <h2>about me</h2>
-    <div class="about-content">
-      <div class="about-grid">
-        <div class="about-column">
-          <div class="page-selector">
-            <select id="aboutSelector">
-              <option value="who">who am i</option>
-              <option value="languages">languages</option>
+      <section class="projects-section">
+        <div class="projects-header">
+          <div class="sort-buttons">
+            <button class="sort-button" title="sort A-Z">
+              <i class="fas fa-sort-alpha-down"></i>
+            </button>
+            <button class="sort-button sort-date" title="sort by date">
+              <i class="fas fa-calendar-arrow-up"></i>
+            </button>
+          </div>
+          <h2>xurst's projects</h2>
+        </div>
+        <div class="projects-controls">
+          <div class="search-box">
+            <input
+              type="text"
+              id="project-search"
+              placeholder="search projects..."
+            />
+            <i class="fas fa-search search-icon"></i>
+          </div>
+          <div class="filter-dropdown">
+            <select id="category-filter">
+              <option value="all">all categories</option>
+              <option value="game">games</option>
+              <option value="project">projects</option>
+              <option value="utility">utilities</option>
             </select>
           </div>
-          <div id="aboutContent">
-            <!-- Content will be loaded here by JavaScript -->
+        </div>
+        <div class="projects-grid">
+          <!-- Projects will be loaded here dynamically -->
+        </div>
+      </section>
+
+      <section class="about-me-section">
+        <h2>about me</h2>
+        <div class="about-content">
+          <div class="about-grid">
+            <div class="about-column">
+              <div class="page-selector">
+                <select id="aboutSelector">
+                  <option value="who">who am i</option>
+                  <option value="languages">languages</option>
+                </select>
+              </div>
+              <div id="aboutContent">
+                <!-- Content will be loaded here by JavaScript -->
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="about-socials">
+            <h3>other links</h3>
+            <div class="social-links">
+              <a
+                href="https://www.instagram.com/xurst1/"
+                target="_blank"
+                class="social-link"
+              >
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="html/discord/index.html" class="social-link">
+                <i class="fab fa-discord"></i>
+              </a>
+              <a
+                href="https://buymeacoffee.com/xurst"
+                target="_blank"
+                class="social-link"
+              >
+                <i class="fas fa-coffee"></i>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="about-socials">
-        <h3>social links</h3>
-        <div class="social-links">
-          <a href="https://www.instagram.com/xurst1/" target="_blank" class="social-link">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="discord_html.html" class="social-link">
-            <i class="fab fa-discord"></i>
-          </a>
-          <a href="https://buymeacoffee.com/xurst" target="_blank" class="social-link">
-            <i class="fas fa-coffee"></i>
-          </a>
-        </div>
-      </div>
+      </section>
     </div>
-  </section>
-</div>
-<script src="src/js/main.js"></script>
-</body>
+    <script src="src/js/main.js"></script>
+  </body>
 </html>

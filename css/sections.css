@@ -14,7 +14,6 @@
 
 .profile-section:hover {
     border-color: rgba(255, 255, 255, 0.8);
-    transform: translateX(5px);
 }
 
 .profile-img {
@@ -34,7 +33,7 @@
 
 .github-link {
     display: block;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
     font-size: 1rem;
     margin-top: -0.5rem;
@@ -43,8 +42,7 @@
 }
 
 .github-link:hover {
-    color: white;
-    transform: scale(1.1);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 /* Projects Section */
@@ -58,6 +56,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
+    grid-auto-rows: min-content; /* Ensures rows only take as much height as needed */
 }
 
 .projects-header {
@@ -112,7 +111,6 @@
 
 .about-me-section:hover {
     border-color: rgba(255, 255, 255, 0.8);
-    transform: translateX(5px);
 }
 
 .about-me-section h2 {
@@ -157,6 +155,43 @@
     background: rgba(255, 255, 255, 0.2);
 }
 
+/* Skills Grid */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.skill-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(60, 60, 60, 0.5);
+    border-radius: 10px;
+    padding: 15px 10px;
+    transition: all 0.3s ease;
+}
+
+.skill-item:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(20, 20, 20, 0.5);
+}
+
+.skill-item i {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.skill-item span {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+/* Old styles kept for compatibility */
 .languages-list {
     list-style: none;
     padding: 0;

@@ -24,7 +24,6 @@
         position: absolute;
         left: 0;
         top: 50%;
-        transform: translateY(-50%);
         display: flex;
         flex-direction: row;
         gap: 1rem; /* Increased gap */
@@ -37,8 +36,8 @@
         padding: 10px !important;
         width: 60px !important;  /* Bigger touch target */
         height: 60px !important; /* Bigger touch target */
+        transform: translateY(-50%);
         background: rgba(0, 0, 0, 0.5); /* Added background for better visibility */
-        border-radius: 50%;
         backdrop-filter: blur(8px);
     }
 
@@ -48,6 +47,13 @@
 
     .project-card {
         margin-bottom: 15px;
+        height: auto; /* Fix for mobile spacing issue */
+    }
+    
+    .projects-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 15px; /* Consistent gap between cards */
     }
 
     .about-grid {
@@ -94,6 +100,43 @@
 
     .about-content h3 {
         font-size: 1.1rem;
+    }
+
+    .sort-button {
+        font-size: 2rem;
+        width: 60px;
+        height: 60px;
+        padding: 12px;
+    }
+
+    .sort-buttons {
+        gap: 1rem;
+    }
+    
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .skill-item {
+        padding: 12px 8px;
+    }
+    
+    .skill-item i {
+        font-size: 1.5rem;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr; /* Single column on mobile */
+        gap: 15px; /* Smaller gap on mobile */
+        width: 100%; /* Ensure full width */
+        overflow: visible; /* Prevent overflow issues */
+    }
+    
+    .project-card {
+        min-height: 0; /* Allow natural height */
+        height: auto; /* Allow natural height */
+        margin-bottom: 0; /* Remove margin to prevent gaps */
     }
 }
 
