@@ -31,13 +31,13 @@
         <div class="topbar-item" id="top-profile">
           <img src="images/xurst's_pfp.png" alt="xurst" class="topbar-img">
         </div>
-        <div class="topbar-item" id="top-projects">
-          <i class="fas fa-project-diagram"></i>
-          <span>projects</span>
-        </div>
         <div class="topbar-item" id="top-featured">
           <i class="fas fa-star"></i>
           <span>featured</span>
+        </div>
+        <div class="topbar-item" id="top-projects">
+          <i class="fas fa-project-diagram"></i>
+          <span>projects</span>
         </div>
         <div class="topbar-item" id="top-about">
           <i class="fas fa-user"></i>
@@ -48,7 +48,7 @@
     <div class="container">
       <section class="profile-section">
         <img src="images/xurst's_pfp.png" alt="xurst" class="profile-img" id="profile-pic" />
-        <h1>xurst's portfolio</h1>
+        <h1 class="portfolio-title">xurst's portfolio</h1>
         <a href="https://github.com/xurst" class="github-link" target="_blank">
           <i class="fab fa-github"></i>
         </a>
@@ -89,6 +89,13 @@
               <option value="game">games</option>
               <option value="project">projects</option>
               <option value="utility">utilities</option>
+            </select>
+          </div>
+          <div class="filter-dropdown">
+            <select id="type-filter">
+              <option value="all">all types</option>
+              <option value="repo">github repos</option>
+              <option value="website">websites</option>
             </select>
           </div>
         </div>
@@ -155,6 +162,7 @@
         </div>
       </section>
     </div>
+    <script src="src/js/github-api.js"></script>
     <script src="src/js/main.js"></script>
     <script src="src/js/scroll-fade.js"></script>
     <script src="src/js/topbar.js"></script>

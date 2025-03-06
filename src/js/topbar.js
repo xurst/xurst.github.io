@@ -16,18 +16,20 @@
   window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     
-    // Show/hide topbar based on scroll position
-    if (scrollTop <= 10) {
-      topbar.classList.add('topbar-hidden');
-    } else {
-      topbar.classList.remove('topbar-hidden');
+    // Set the position fixed or absolute based on scroll
+    if (scrollTop > 150) { // Change to fixed position after scrolling past header
+      topbar.classList.add('topbar-fixed');
       
       // Only hide on scroll down when not at the top
-      if (scrollTop > lastScrollTop && scrollTop > 200) {
+      if (scrollTop > lastScrollTop && scrollTop > 250) {
         topbar.classList.add('topbar-hidden');
       } else {
         topbar.classList.remove('topbar-hidden');
       }
+    } else {
+      // At the top or near top, use absolute positioning
+      topbar.classList.remove('topbar-fixed');
+      topbar.classList.remove('topbar-hidden');
     }
     
     lastScrollTop = scrollTop;

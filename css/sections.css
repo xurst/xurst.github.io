@@ -27,18 +27,22 @@
 }
 
 .profile-img:hover {
-    transform: scale(1.05);
     border-color: rgba(255, 255, 255, 0.8);
 }
 
+.portfolio-title {
+    margin-top: -0.8rem;
+}
+
 .github-link {
-    display: block;
+    display: inline-block;
     color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
-    font-size: 2rem;
-    margin-top: -1.25rem;
+    font-size: 2.25rem;
+    margin-top: -1.4rem;
     margin-bottom: 1.5rem;
     transition: all 0.3s ease;
+    padding: 5px 10px;
 }
 
 .github-link:hover {
@@ -112,7 +116,7 @@
     padding: 30px;
     margin-top: 30px;
     backdrop-filter: blur(8px);
-    transition: all 0.3s ease;
+    transition: all 0.3s ease, border-color 0.3s ease;
 }
 
 .about-me-section:hover {
@@ -178,7 +182,7 @@
     border: 1px solid rgba(60, 60, 60, 0.5);
     border-radius: 10px;
     padding: 15px 10px;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease, border-color 0.3s ease, background 0.3s ease;
 }
 
 .skill-item:hover {

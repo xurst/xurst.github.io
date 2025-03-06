@@ -10,7 +10,7 @@
   pointer-events: none;
 }
 
-.profile-section:hover .profile-img {
+/* .profile-section:hover .profile-img {
   animation: subtle-bounce 2s infinite ease-in-out;
 }
 

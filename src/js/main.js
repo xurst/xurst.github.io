@@ -8,11 +8,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const sortDateButton = document.querySelector(".sort-button.sort-date");
   const projectSearch = document.getElementById("project-search");
   const categoryFilter = document.getElementById("category-filter");
+  const typeFilter = document.getElementById("type-filter");
   let activeSort = "alpha-asc";
   let activeFilter = "all";
+  let activeTypeFilter = "all";
 
   const GITHUB_USERNAME = "xurst";
-  const GITHUB_API_BASE = "https://api.github.com";
 
   const aboutContentData = {
     who: `
@@ -69,11 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function getLanguages(repo) {
     try {
-      const response = await fetch(
-        `${GITHUB_API_BASE}/repos/${GITHUB_USERNAME}/${repo.name}/languages`
-      );
-      if (!response.ok) return null;
-      return await response.json();
+      return await GitHubAPI.getRepoLanguages(repo.name);
     } catch (error) {
       console.error(`Error fetching languages for ${repo.name}:`, error);
       return null;
@@ -154,6 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const languages = await getLanguages(repo);
     const languagesHtml = formatLanguages(languages);
     const category = getProjectCategory(repo);
+    const projectType = visitType.includes('website') ? 'website' : 'repo';
     
     // Clean description by removing category tags at the end
     let description = repo.description || "no description available.";
@@ -162,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return `
             <div class="project-card" data-name="${repo.name}" data-date="${
       repo.pushed_at
-    }" data-category="${category}">
+    }" data-category="${category}" data-type="${projectType}">
                 <div class="project-header">
                     <a href="${projectUrl}" target="_blank">${repo.name}</a>
                     <span class="project-category ${category}">${category}</span>
@@ -191,23 +189,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function fetchRepos() {
     try {
-      const response = await fetch(
-        `${GITHUB_API_BASE}/users/${GITHUB_USERNAME}/repos`
-      );
-      if (!response.ok) throw new Error("failed to fetch repo");
-
-      const repos = await response.json();
+      // Show loading indicator
+      projectsGrid.innerHTML = '<div class="loading">loading projects...</div>';
+      
+      const repos = await GitHubAPI.getUserRepos();
 
       const repoDetailsPromises = repos
         .filter((repo) => !repo.fork && repo.name !== "xurst.github.io")
         .map(async (repo) => {
           try {
-            const detailResponse = await fetch(
-              `${GITHUB_API_BASE}/repos/${GITHUB_USERNAME}/${repo.name}`
-            );
-            if (!detailResponse.ok) return repo;
-
-            const details = await detailResponse.json();
+            const details = await GitHubAPI.getRepoDetails(repo.name);
             return {
               ...repo,
               homepage: details.homepage,
@@ -219,9 +210,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
       const reposWithDetails = await Promise.all(repoDetailsPromises);
-
-      // Show loading indicator
-      projectsGrid.innerHTML = '<div class="loading">loading projects...</div>';
 
       // Create project cards one by one
       const projectCards = [];
@@ -290,6 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const projectName = card.dataset.name.toLowerCase();
       const projectCategory = card.dataset.category;
+      const projectType = card.dataset.type;
       const projectDescription = card
         .querySelector("p")
         .textContent.toLowerCase();
@@ -303,9 +292,13 @@ document.addEventListener("DOMContentLoaded", () => {
       // Check if matches category filter
       const matchesCategory =
         activeFilter === "all" || projectCategory === activeFilter;
+        
+      // Check if matches type filter
+      const matchesType =
+        activeTypeFilter === "all" || projectType === activeTypeFilter;
 
       // Show or hide based on combined filters
-      if (matchesSearch && matchesCategory) {
+      if (matchesSearch && matchesCategory && matchesType) {
         card.style.display = "";
       } else {
         card.style.display = "none";
@@ -367,6 +360,10 @@ document.addEventListener("DOMContentLoaded", () => {
   projectSearch.addEventListener("input", filterProjects);
   categoryFilter.addEventListener("change", (e) => {
     activeFilter = e.target.value;
+    filterProjects();
+  });
+  typeFilter.addEventListener("change", (e) => {
+    activeTypeFilter = e.target.value;
     filterProjects();
   });
 
