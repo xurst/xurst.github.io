@@ -20,15 +20,46 @@
     <link href="css/social.css" rel="stylesheet" />
     <link href="css/media-queries.css" rel="stylesheet" />
     <link href="css/components/scroll-top.css" rel="stylesheet" />
+    <link href="css/scroll-fade.css" rel="stylesheet" />
+    <link href="css/topbar.css" rel="stylesheet" />
+    <link href="css/featured.css" rel="stylesheet" />
+    <link href="css/profile-pic.css" rel="stylesheet" />
   </head>
   <body>
+    <div class="topbar">
+      <div class="topbar-container">
+        <div class="topbar-item" id="top-profile">
+          <img src="images/xurst's_pfp.png" alt="xurst" class="topbar-img">
+        </div>
+        <div class="topbar-item" id="top-projects">
+          <i class="fas fa-project-diagram"></i>
+          <span>projects</span>
+        </div>
+        <div class="topbar-item" id="top-featured">
+          <i class="fas fa-star"></i>
+          <span>featured</span>
+        </div>
+        <div class="topbar-item" id="top-about">
+          <i class="fas fa-user"></i>
+          <span>about</span>
+        </div>
+      </div>
+    </div>
     <div class="container">
       <section class="profile-section">
-        <img src="images/xurst's_pfp.png" alt="xurst" class="profile-img" />
+        <img src="images/xurst's_pfp.png" alt="xurst" class="profile-img" id="profile-pic" />
         <h1>xurst's portfolio</h1>
-        <a href="https://github.com/xurst" class="github-link" target="_blank"
-          >github.com/xurst</a
-        >
+        <a href="https://github.com/xurst" class="github-link" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </section>
+
+      <section class="featured-section">
+        <h2>featured work</h2>
+        <div class="featured-grid">
+          <!-- Featured projects will be loaded here dynamically -->
+          <div class="featured-placeholder">loading featured projects...</div>
+        </div>
       </section>
 
       <section class="projects-section">
@@ -38,7 +69,7 @@
               <i class="fas fa-sort-alpha-down"></i>
             </button>
             <button class="sort-button sort-date" title="sort by date">
-              <i class="fas fa-calendar-arrow-up"></i>
+              <i class="fas fa-sort-amount-down"></i>
             </button>
           </div>
           <h2>xurst's projects</h2>
@@ -86,24 +117,38 @@
           <div class="divider"></div>
 
           <div class="about-socials">
-            <h3>other links</h3>
+            <h3>cool links</h3>
             <div class="social-links">
               <a
                 href="https://www.instagram.com/xurst1/"
                 target="_blank"
                 class="social-link"
+                title="instagram"
               >
                 <i class="fab fa-instagram"></i>
+                <span>instagram</span>
               </a>
-              <a href="html/discord/index.html" class="social-link">
+              <a href="html/discord/index.html" class="social-link" title="Discord">
                 <i class="fab fa-discord"></i>
+                <span>discord</span>
               </a>
               <a
                 href="https://buymeacoffee.com/xurst"
                 target="_blank"
                 class="social-link"
+                title="buy me a coffee"
               >
                 <i class="fas fa-coffee"></i>
+                <span>support</span>
+              </a>
+              <a
+                href="mailto:xurst3@gmail.com"
+                target="_blank"
+                class="social-link"
+                title="email"
+              >
+                <i class="fas fa-envelope"></i>
+                <span>email</span>
               </a>
             </div>
           </div>
@@ -111,5 +156,9 @@
       </section>
     </div>
     <script src="src/js/main.js"></script>
+    <script src="src/js/scroll-fade.js"></script>
+    <script src="src/js/topbar.js"></script>
+    <script src="src/js/featured.js"></script>
+    <script src="src/js/profile-pic.js"></script>
   </body>
 </html>

@@ -1,40 +1,85 @@
 .social-links {
     display: flex;
     justify-content: center;
-    gap: 1rem;  /* Changed to 1rem globally */
+    gap: 1rem;
     margin-top: 1.5rem;
+    flex-wrap: wrap;
     width: 100%;
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .social-link {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 1.5rem;
-    text-decoration: none;
-    transition: all 0.3s ease;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 12px 20px;
+    border-radius: 13px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(60, 60, 60, 0.5);
+    min-width: 100px;
 }
 
-.social-link:not(a) {
-    font-size: 1.2rem;
-    width: auto;
-    padding: 0 8px;
+.social-link i {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.social-link span {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .social-link:hover {
-    color: rgba(255, 255, 255, 1);
-    transform: scale(1.1);
+    background: rgba(20, 20, 20, 0.5);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Instagram */
+.social-link:nth-child(1):hover {
+    background: linear-gradient(45deg, 
+        rgba(79, 91, 213, 0.4),   /* blue */
+        rgba(150, 47, 191, 0.4),  /* purple */
+        rgba(214, 41, 118, 0.4),  /* pink */
+        rgba(250, 126, 30, 0.4),  /* orange */
+        rgba(254, 218, 117, 0.4)  /* light yellow */
+    );
+}
+
+/* Discord */
+.social-link:nth-child(2):hover {
+    background: rgba(88, 101, 242, 0.4);
+}
+
+/* Coffee (Buy Me a Coffee) */
+.social-link:nth-child(3):hover {
+    background: rgba(255, 221, 0, 0.4);
+}
+
+/* Email */
+.social-link:nth-child(4):hover {
+    background: linear-gradient(45deg, 
+        rgba(66, 133, 244, 0.4),   /* Blueberry - Gmail Blue */
+        rgba(234, 67, 53, 0.4),    /* Cinnabar - Gmail Red */
+        rgba(251, 188, 5, 0.4),    /* Selective Yellow - Gmail Yellow */
+        rgba(52, 168, 83, 0.4)     /* Sea Green - Gmail Green */
+    );
 }
 
 .about-socials .social-links {
-    margin: 0;
-    margin-left: -5px;
-    justify-content: flex-start;
+    margin: 1rem 0;
+    justify-content: center;
+}
+
+@media (max-width: 600px) {
+    .social-links {
+        gap: 0.75rem;
+    }
+    
+    .social-link {
+        min-width: 85px;
+        padding: 10px;
+    }
 }

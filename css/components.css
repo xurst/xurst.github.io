@@ -8,9 +8,13 @@
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
-    height: auto; /* Changed from 100% to auto to fix spacing issues */
-    margin-bottom: 0; /* Fix for unexpected bottom space */
-    box-sizing: border-box; /* Ensure padding is included in height calculation */
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: auto;
+    margin-bottom: 0;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    flex-grow: 0;
 }
 
 .project-card:hover {
@@ -90,11 +94,11 @@
     color: rgba(255, 255, 255, 0.7);
     cursor: pointer;
     transition: all 0.3s ease;
-    padding: 8px;
+    padding: 10px;
     border-radius: 13px;
-    font-size: 1.25rem;
-    width: 48px;
-    height: 48px;
+    font-size: 1.5rem; /* Increased font size */
+    width: 56px; /* Increased width */
+    height: 56px; /* Increased height */
     display: flex;
     align-items: center;
     justify-content: center;

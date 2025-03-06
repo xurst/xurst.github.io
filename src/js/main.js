@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <span>python</span>
                 </div>
                 <div class="skill-item">
-                    <i class="fas fa-hashtag"></i>
+                    <i class="fas fa-code"></i>
                     <span>C/C++/C#</span>
                 </div>
                 <div class="skill-item">
@@ -41,19 +41,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     <span>html/css</span>
                 </div>
                 <div class="skill-item">
-                    <i class="far fa-file-code"></i>
+                    <i class="fas fa-moon"></i>
                     <span>lua</span>
                 </div>
-                                <div class="skill-item">
-                    <i class="far fa-file-code"></i>
+                <div class="skill-item">
+                    <i class="fas fa-fire"></i>
                     <span>svelte</span>
                 </div>
-                                <div class="skill-item">
-                    <i class="far fa-file-code"></i>
+                <div class="skill-item">
+                    <i class="fab fa-react"></i>
                     <span>react.js</span>
                 </div>
-                                <div class="skill-item">
-                    <i class="fas fa-node"></i>
+                <div class="skill-item">
+                    <i class="fab fa-node-js"></i>
                     <span>node.js</span>
                 </div>
             </div>
@@ -98,9 +98,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (topLangs.length === 1) {
       langText = topLangs[0];
     } else if (topLangs.length === 2) {
-      langText = `${topLangs[0]} and ${topLangs[1]}`;
+      langText = `${topLangs[0]} & ${topLangs[1]}`;
     } else if (topLangs.length === 3) {
-      langText = `${topLangs[0]}, ${topLangs[1]}, and ${topLangs[2]}`;
+      langText = `${topLangs[0]}, ${topLangs[1]}, & ${topLangs[2]}`;
     }
 
     return `
@@ -154,6 +154,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const languages = await getLanguages(repo);
     const languagesHtml = formatLanguages(languages);
     const category = getProjectCategory(repo);
+    
+    // Clean description by removing category tags at the end
+    let description = repo.description || "no description available.";
+    description = description.replace(/\s*\([^)]*\)\s*$/, ""); // Remove parentheses at the end
 
     return `
             <div class="project-card" data-name="${repo.name}" data-date="${
@@ -164,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <span class="project-category ${category}">${category}</span>
                     <span class="click-indicator"><i class="fas fa-arrow-right"></i> click to visit: ${visitType}</span>
                 </div>
-                <p>${repo.description || "no description available."}</p>
+                <p>${description}</p>
                 <div class="last-updated">
                     <i class="fas fa-history"></i>
                     <span>last updated: ${formatDate(repo.pushed_at)}</span>
@@ -258,8 +262,8 @@ document.addEventListener("DOMContentLoaded", () => {
       sortAlphaButton.classList.remove("active");
       sortDateButton.querySelector("i").className =
         activeSort === "date-desc"
-          ? "fas fa-calendar-arrow-down"
-          : "fas fa-calendar-arrow-up";
+          ? "fas fa-sort-amount-up"
+          : "fas fa-sort-amount-down";
       sortAlphaButton.querySelector("i").className = "fas fa-sort-alpha-down";
     } else {
       sortAlphaButton.classList.add("active");
@@ -268,7 +272,7 @@ document.addEventListener("DOMContentLoaded", () => {
         activeSort === "alpha-desc"
           ? "fas fa-sort-alpha-up"
           : "fas fa-sort-alpha-down";
-      sortDateButton.querySelector("i").className = "fas fa-calendar-arrow-up";
+      sortDateButton.querySelector("i").className = "fas fa-sort-amount-down";
     }
   }
 

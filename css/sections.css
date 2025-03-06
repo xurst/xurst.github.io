@@ -35,8 +35,8 @@
     display: block;
     color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
-    font-size: 1rem;
-    margin-top: -0.5rem;
+    font-size: 2rem;
+    margin-top: -1.25rem;
     margin-bottom: 1.5rem;
     transition: all 0.3s ease;
 }
@@ -57,6 +57,12 @@
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
     grid-auto-rows: min-content; /* Ensures rows only take as much height as needed */
+    align-items: stretch;
+}
+
+/* This ensures consistent height alignment */
+.projects-grid > * {
+    height: fit-content;
 }
 
 .projects-header {

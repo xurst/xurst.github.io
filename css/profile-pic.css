@@ -1,0 +1,24 @@
+.profile-img {
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.profile-glasses {
+  position: absolute;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.profile-section:hover .profile-img {
+  animation: subtle-bounce 2s infinite ease-in-out;
+}
+
+@keyframes subtle-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
