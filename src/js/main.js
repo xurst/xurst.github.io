@@ -163,8 +163,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }" data-category="${category}" data-type="${projectType}">
                 <div class="project-header">
                     <a href="${projectUrl}" target="_blank">${repo.name}</a>
-                    <span class="project-category ${category}">${category}</span>
-                    <span class="click-indicator"><i class="fas fa-arrow-right"></i> click to visit: ${visitType}</span>
+                    <div class="project-tags">
+                        <span class="project-category ${category}">${category}</span>
+                        <span class="project-category ${projectType}">${projectType}</span>
+                    </div>
+                    <span class="click-indicator"><i class="fas fa-arrow-right"></i> click to visit</span>
                 </div>
                 <p>${description}</p>
                 <div class="last-updated">

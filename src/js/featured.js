@@ -1,9 +1,6 @@
 (function() {
   const featuredGrid = document.querySelector('.featured-grid');
   
-  // Use the same card creation function from main.js
-  // This will be updated to use shared project cards for a consistent look
-  
   async function fetchTopProjects() {
     try {
       // Show loading placeholder
@@ -34,41 +31,62 @@
           const details = await GitHubAPI.getRepoDetails(repo.name);
           const fullRepo = { ...repo, homepage: details.homepage };
           
-          // Use the main.js createProjectCard function if available, or create our own
-          let card;
-          if (typeof createProjectCard === 'function') {
-            card = await createProjectCard(fullRepo);
-          } else {
-            // Fallback if we can't access the main function
-            const languages = await GitHubAPI.getRepoLanguages(repo.name);
-            const projectUrl = fullRepo.homepage || fullRepo.html_url;
-            
-            // Clean description - remove parentheses tags
-            let description = fullRepo.description || "no description available";
-            description = description.replace(/\s*\([^)]*\)\s*$/, "");
-            
-            // Format languages with proper grammar
-            let languageDisplay = '';
-            if (languages) {
-              const languageKeys = Object.keys(languages).slice(0, 3);
-              if (languageKeys.length === 1) {
-                languageDisplay = languageKeys[0].toLowerCase();
-              } else if (languageKeys.length === 2) {
-                languageDisplay = `${languageKeys[0].toLowerCase()} & ${languageKeys[1].toLowerCase()}`;
-              } else if (languageKeys.length === 3) {
-                languageDisplay = `${languageKeys[0].toLowerCase()}, ${languageKeys[1].toLowerCase()}, & ${languageKeys[2].toLowerCase()}`;
+          const projectUrl = fullRepo.homepage || fullRepo.html_url;
+          const visitType = fullRepo.homepage ? 'website' : 'repo';
+          const languages = await GitHubAPI.getRepoLanguages(repo.name);
+          const category = getProjectCategory(fullRepo);
+          
+          // Clean description - remove parentheses tags
+          let description = fullRepo.description || "no description available";
+          description = description.replace(/\s*\([^)]*\)\s*$/, "");
+          
+          // Format languages
+          let languagesHtml = '';
+          if (languages && Object.keys(languages).length > 0) {
+            // Sort languages by bytes (most used first)
+            const sortedLangs = Object.entries(languages)
+              .sort((a, b) => b[1] - a[1])
+              .map((entry) => entry[0].toLowerCase());
+        
+            // Take only the top 3 languages
+            const topLangs = sortedLangs.slice(0, 3);
+        
+            if (topLangs.length > 0) {
+              // Format with proper English grammar
+              let langText = "";
+              if (topLangs.length === 1) {
+                langText = topLangs[0];
+              } else if (topLangs.length === 2) {
+                langText = `${topLangs[0]} & ${topLangs[1]}`;
+              } else if (topLangs.length === 3) {
+                langText = `${topLangs[0]}, ${topLangs[1]}, & ${topLangs[2]}`;
               }
+              
+              languagesHtml = `
+                <div class="project-languages">
+                  <i class="fas fa-code"></i>
+                  <span>coded in ${langText}</span>
+                </div>
+              `;
             }
-            
-            card = `
-            <div class="project-card featured-project" data-name="${fullRepo.name}" data-stars="${fullRepo.stargazers_count}">
-              <div class="featured-badge">featured #${topRepos.indexOf(repo) + 1}</div>
+          }
+          
+          // Calculate featured rank
+          const rank = topRepos.indexOf(repo) + 1;
+          
+          const card = `
+            <div class="project-card featured-project" data-name="${fullRepo.name}" data-date="${fullRepo.pushed_at}" data-category="${category}" data-type="${visitType}">
+              <div class="featured-badge">★ #${rank}</div>
               <div class="project-header">
                 <a href="${projectUrl}" target="_blank">${fullRepo.name}</a>
-                <span class="project-stars"><i class="fas fa-star"></i> ${fullRepo.stargazers_count}</span>
+                <div class="project-tags">
+                  <span class="project-category ${category}">${category}</span>
+                  <span class="project-category ${visitType}">${visitType}</span>
+                </div>
+                <span class="click-indicator"><i class="fas fa-arrow-right"></i> click to visit</span>
               </div>
               <p>${description}</p>
-              <div class="project-footer">
+              <div class="project-info">
                 <div class="last-updated">
                   <i class="fas fa-history"></i>
                   <span>last updated: ${new Date(fullRepo.pushed_at).toLocaleDateString('en-US', {
@@ -77,16 +95,14 @@
                     year: 'numeric'
                   }).toLowerCase()}</span>
                 </div>
-                ${languages ? `
-                  <div class="project-languages">
-                    <i class="fas fa-code"></i>
-                    <span>coded in ${languageDisplay}</span>
-                  </div>
-                ` : ''}
+                <div class="project-stars">
+                  <i class="fas fa-star"></i>
+                  <span>${fullRepo.stargazers_count} stars</span>
+                </div>
               </div>
+              ${languagesHtml}
             </div>
           `;
-          }
           
           projectCards.push(card);
         } catch (error) {
@@ -122,6 +138,43 @@
       console.error('Error fetching featured projects:', error);
       featuredGrid.innerHTML = '<div class="featured-placeholder">failed to load featured projects. try refreshing the page or try again later.</div>';
     }
+  }
+
+  // Helper function to determine project category
+  function getProjectCategory(repo) {
+    // Default category
+    let category = "project";
+
+    // Check description for explicit category in parentheses - (game), (project), (utility)
+    const description = (repo.description || "").toLowerCase();
+
+    // Look for pattern like "project name (category)"
+    const categoryPattern = /\(([^)]+)\)$/; // Matches text in parentheses at the end
+    const match = description.match(categoryPattern);
+
+    if (match) {
+      const categoryText = match[1].trim().toLowerCase();
+      if (["game", "project", "utility"].includes(categoryText)) {
+        return categoryText;
+      }
+    }
+
+    // Fallback to keyword detection if no explicit category
+    if (
+      description.includes("game") ||
+      repo.name.toLowerCase().includes("game")
+    ) {
+      category = "game";
+    } else if (
+      description.includes("utility") ||
+      description.includes("tool") ||
+      repo.name.toLowerCase().includes("util") ||
+      repo.name.toLowerCase().includes("tool")
+    ) {
+      category = "utility";
+    }
+
+    return category;
   }
   
   // Initialize

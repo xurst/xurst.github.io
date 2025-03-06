@@ -17,8 +17,10 @@
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     
     // Set the position fixed or absolute based on scroll
-    if (scrollTop > 150) { // Change to fixed position after scrolling past header
-      topbar.classList.add('topbar-fixed');
+    if (scrollTop > 50) { // Change to fixed position after scrolling past header
+      if (!topbar.classList.contains('topbar-fixed')) {
+        topbar.classList.add('topbar-fixed');
+      }
       
       // Only hide on scroll down when not at the top
       if (scrollTop > lastScrollTop && scrollTop > 250) {
@@ -86,7 +88,7 @@
   // You can adjust these offsets to control exactly where each click scrolls to
   const scrollOffsets = {
     profile: 0,            // Top of page
-    projects: -100,         // Adjust this value to scroll higher/lower
+    projects: -95,         // Adjust this value to scroll higher/lower
     featured: -100,         // Adjust this value to scroll higher/lower
     about: 200               // Adjust this value to scroll higher/lower
   };

@@ -17,6 +17,31 @@
     flex-grow: 0;
 }
 
+.project-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Changed from center to flex-start */
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.project-stars {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all 0.3s ease;
+    align-self: flex-start; /* Added this line */
+}
+
+.project-stars i {
+    color: #FFC107;
+}
+
+.project-card:hover .project-stars {
+    color: rgba(255, 255, 255, 0.8);
+}
+
 .project-card:hover {
     border-color: rgba(255, 255, 255, 0.8);
 }
@@ -242,16 +267,21 @@
 }
 
 /* Project Category & Languages */
+.project-tags {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 8px;
+}
+
 .project-category {
     display: inline-block;
     font-size: 0.7rem;
     padding: 3px 8px;
     border-radius: 12px;
-    margin-right: 5px;
-    margin-bottom: 8px;
     background: rgba(45, 45, 45, 0.6);
     border: 1px solid rgba(100, 100, 100, 0.3);
     color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
 }
 
 .project-category.game {
@@ -267,6 +297,16 @@
 .project-category.utility {
     background: rgba(76, 175, 80, 0.2);
     border-color: rgba(76, 175, 80, 0.4);
+}
+
+.project-category.website {
+    background: rgba(255, 152, 0, 0.2); 
+    border-color: rgba(255, 152, 0, 0.4);
+}
+
+.project-category.repo {
+    background: rgba(33, 150, 243, 0.2);
+    border-color: rgba(33, 150, 243, 0.4);
 }
 
 .project-languages {
