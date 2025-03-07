@@ -13,6 +13,12 @@
     max-width: 800px;
     margin: 0 auto 30px;
     min-height: 200px;
+    position: relative;
+}
+
+.projects-section .section-description {
+    margin-top: -5px;
+    margin-bottom: 1.5rem;
 }
 
 .profile-section:hover {
@@ -61,7 +67,7 @@
     display: inline-block;
     color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     transition: all 0.3s ease;
     padding: 5px 10px;
 }
@@ -70,19 +76,170 @@
     color: rgba(255, 255, 255, 0.9);
 }
 
-@media (max-width: 600px) {
+.social-dropdown {
+    display: none;
+    position: fixed; /* Changed from absolute to fixed */
+    bottom: 5px;
+    right: 5px;
+    width: fit-content;
+    z-index: 9999; /* Extremely high z-index */
+}
+
+.social-dropdown-toggle {
+    background-color: rgba(20, 20, 20, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 7px 12px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.3);
+}
+
+.social-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(20, 20, 20, 0.95);
+    min-width: 160px; /* Increased width */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+    z-index: 9999; /* Extremely high z-index */
+    border-radius: 4px;
+    padding: 8px 0; /* More padding */
+    bottom: 100%; /* Positioned above button instead of below */
+    right: 0;
+    margin-bottom: 5px; /* Space between dropdown and button */
+}
+
+.social-dropdown-content a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+.social-dropdown-content a i {
+    margin-right: 8px;
+    font-size: 1.1rem;
+}
+
+.social-dropdown-content a:hover {
+    background-color: rgba(60, 60, 60, 0.4);
+    color: white;
+}
+
+.social-dropdown.active .social-dropdown-content {
+    display: block;
+}
+
+@media (max-width: 768px) {
     .profile-section {
         flex-direction: column;
         padding: 25px 15px;
+        height: auto;
+        min-height: 280px;
     }
     
     .profile-img {
         margin-bottom: 15px;
+        width: 110px;
+        height: 110px;
+    }
+    
+    .profile-content {
+        width: 100%;
+        padding: 0;
+    }
+    
+    .profile-description {
+        font-size: 0.9rem;
+        max-width: 100%;
+        padding: 0 10px;
     }
     
     .profile-links {
         flex-direction: row;
-        margin-top: 20px;
+        margin-top: 15px;
+        justify-content: center;
+        width: 100%;
+        gap: 20px;
+    }
+    
+    .social-icon-link {
+        font-size: 1.3rem;
+        padding: 5px 8px;
+    }
+}
+
+@media (max-width: 600px) {
+    .profile-section {
+        flex-direction: column;
+        padding: 25px 15px;
+        height: auto;
+        min-height: 280px;
+    }
+    
+    .profile-img {
+        margin-bottom: 15px;
+        width: 110px;
+        height: 110px;
+    }
+    
+    .profile-content {
+        width: 100%;
+        padding: 0;
+    }
+    
+    .profile-description {
+        font-size: 0.9rem;
+        max-width: 100%;
+        padding: 0 10px;
+    }
+    
+    .profile-links {
+        flex-direction: row;
+        margin-top: 15px;
+        justify-content: center;
+        width: 100%;
+        gap: 20px;
+    }
+    
+    .social-icon-link {
+        font-size: 1.3rem;
+        padding: 5px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-section {
+        padding: 20px 12px 50px 12px; /* Increased bottom padding for dropdown */
+        margin-bottom: 20px;
+    }
+    
+    .portfolio-title {
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+    }
+    
+    .profile-description {
+        font-size: 0.8rem;
+    }
+    
+    .profile-links {
+        display: none;
+    }
+    
+    .social-dropdown {
+        display: block;
+    }
+    
+    .social-dropdown-toggle {
+        display: flex;
     }
 }
 
@@ -98,7 +255,6 @@
     color: rgba(255, 255, 255, 0.7);
     font-size: 0.9rem;
     margin-bottom: 1.5rem;
-    font-style: italic;
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
@@ -164,7 +320,8 @@
     padding: 30px;
     margin-top: 30px;
     backdrop-filter: blur(8px);
-    transition: border-color 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);}
+    transition: border-color 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
 
 .about-me-section:hover {
     border-color: rgba(255, 255, 255, 0.8);

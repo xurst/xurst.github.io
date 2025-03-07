@@ -80,7 +80,6 @@
 
 /* Add subtle animation to category tags */
 .project-card:hover .project-category {
-  transform: translateY(-2px);
   transition: transform 0.2s ease;
 }
 

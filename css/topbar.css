@@ -81,27 +81,52 @@
   transition: all 0.2s ease;
 }
 
-/* Mobile adjustments */
-@media (max-width: 480px) {
+/* Tablet adjustments */
+@media (max-width: 768px) {
   .topbar-container {
-    padding: 5px 10px;
+    padding: 1px 1px;
   }
   
   .topbar-item {
-    padding: 4px;
+    padding: 5px;
   }
   
   .topbar-item i {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     margin-bottom: 2px;
   }
   
   .topbar-item span {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
   }
   
   .topbar-img {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .topbar-container {
+    padding: 3px 8px;
+  }
+  
+  .topbar-item {
+    padding: 3px;
+  }
+  
+  .topbar-item i {
+    font-size: 1rem;
+    margin-bottom: 1px;
+  }
+  
+  .topbar-item span {
+    font-size: 0.6rem;
+  }
+  
+  .topbar-img {
+    width: 24px;
+    height: 24px;
   }
 }

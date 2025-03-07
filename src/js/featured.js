@@ -7,21 +7,8 @@
       featuredGrid.innerHTML =
         '<div class="featured-placeholder">loading featured projects...</div>';
 
-      // First fetch all repos using the GitHub API module
-      const repos = await GitHubAPI.getUserRepos();
-
-      // Filter out fork and profile repos
-      const ownRepos = repos.filter(
-        (repo) => !repo.fork && repo.name !== GitHubAPI.username + ".github.io"
-      );
-
-      // Sort by stars (most to least)
-      const sortedRepos = ownRepos.sort(
-        (a, b) => b.stargazers_count - a.stargazers_count
-      );
-
-      // Get top 3 (or fewer if there aren't 3)
-      const topRepos = sortedRepos.slice(0, 4);
+      // Get featured repos using the optimized function
+      const topRepos = await GitHubAPI.getFeaturedRepos();
 
       if (topRepos.length === 0) {
         featuredGrid.innerHTML =

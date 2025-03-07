@@ -73,6 +73,17 @@
     justify-content: center;
 }
 
+@media (max-width: 768px) {
+    .social-links {
+        gap: 0.75rem;
+    }
+    
+    .social-link {
+        min-width: 85px;
+        padding: 10px;
+    }
+}
+
 @media (max-width: 600px) {
     .social-links {
         gap: 0.75rem;

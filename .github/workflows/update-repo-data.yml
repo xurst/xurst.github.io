@@ -1,0 +1,45 @@
+name: Update Repository Data
+
+on:
+  schedule:
+    # Run once a day at midnight
+    - cron: '0 0 * * *'
+  # Allow manual triggering
+  workflow_dispatch:
+  # Also run when someone pushes to main branch
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  update-repo-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      
+      - name: Install dependencies
+        run: npm install @octokit/rest axios
+      
+      - name: Fetch GitHub repository data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p data
+          node .github/scripts/fetch-repo-data.js
+      
+      - name: Commit and push if there are changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data/
+          # Commit only if there are changes
+          git diff --staged --quiet || git commit -m "Update repository data"
+          git push

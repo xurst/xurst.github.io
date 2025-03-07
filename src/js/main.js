@@ -13,6 +13,23 @@ document.addEventListener("DOMContentLoaded", () => {
   let activeFilter = "all";
   let activeTypeFilter = "all";
 
+  // Initialize the social dropdown functionality
+  const socialDropdownToggle = document.querySelector('.social-dropdown-toggle');
+  const socialDropdown = document.querySelector('.social-dropdown');
+  
+  if (socialDropdownToggle && socialDropdown) {
+    socialDropdownToggle.addEventListener('click', () => {
+      socialDropdown.classList.toggle('active');
+    });
+    
+    // Close the dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!socialDropdown.contains(e.target)) {
+        socialDropdown.classList.remove('active');
+      }
+    });
+  }
+
   const GITHUB_USERNAME = "xurst";
 
   const aboutContentData = {
@@ -343,41 +360,41 @@ document.addEventListener("DOMContentLoaded", () => {
     filterProjects();
   }
 
-  // Initialize the about content with a swipe transition element
-  function initAboutContent() {
-    // Create swipe transition element if it doesn't exist
-    if (!document.querySelector('.swipe-transition')) {
-      const swipeTransition = document.createElement('div');
-      swipeTransition.className = 'swipe-transition';
-      aboutContent.appendChild(swipeTransition);
-      
-      // Wrap content in a content wrapper if it doesn't exist
-      if (!document.querySelector('.content-wrapper')) {
-        const contentHtml = aboutContent.innerHTML;
-        aboutContent.innerHTML = `<div class="content-wrapper">${contentHtml}</div>`;
-        aboutContent.appendChild(swipeTransition);
-      }
-    }
-  }
-  
-  // Call the init function once
-  initAboutContent();
-  
+  // Function to initialize about content
+  aboutContent.innerHTML = `
+    <div class="content-wrapper">${aboutContentData[aboutSelector.value]}</div>
+    <div class="swipe-transition"></div>
+  `;
+
+  // Improved event listener with proper error handling
   aboutSelector.addEventListener("change", (e) => {
     const contentWrapper = aboutContent.querySelector('.content-wrapper');
+    if (!contentWrapper) {
+      console.error('Content wrapper not found, reinitializing');
+      aboutContent.innerHTML = `
+        <div class="content-wrapper"></div>
+        <div class="swipe-transition"></div>
+      `;
+    }
     
     // Add the active class to trigger the swipe animation
     aboutContent.classList.add('swipe-active');
     
     // Change content after the swipe has covered the content
     setTimeout(() => {
-      contentWrapper.innerHTML = aboutContentData[e.target.value];
+      const newWrapper = aboutContent.querySelector('.content-wrapper');
+      if (newWrapper) {
+        newWrapper.innerHTML = aboutContentData[e.target.value];
+      } else {
+        // Fallback if wrapper still not found
+        aboutContent.innerHTML = aboutContentData[e.target.value];
+      }
       
       // Remove the active class to swipe back out
       setTimeout(() => {
         aboutContent.classList.remove('swipe-active');
       }, 50);
-    }, 250); // Half the transition time to change content mid-animation
+    }, 250);
   });
 
   let sortTimeout;
