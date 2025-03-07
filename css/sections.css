@@ -52,9 +52,17 @@
 
 /* Projects Section */
 .projects-section h2 {
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
     text-align: center;
     color: rgba(255, 255, 255, 0.9);
+}
+
+.section-description {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    font-style: italic;
 }
 
 .projects-grid {
@@ -154,6 +162,15 @@
     width: 100%;
     margin: 0;
     padding: 0;
+}
+
+#aboutContent {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#aboutContent.fade-out {
+    opacity: 0;
+    transform: translateY(10px);
 }
 
 .about-column:not(:last-child)::after {

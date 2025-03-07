@@ -344,7 +344,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   aboutSelector.addEventListener("change", (e) => {
-    aboutContent.innerHTML = aboutContentData[e.target.value];
+    // Add the fade-out class for transition
+    aboutContent.classList.add('fade-out');
+    
+    // Wait for the transition to complete before changing content
+    setTimeout(() => {
+      aboutContent.innerHTML = aboutContentData[e.target.value];
+      
+      // Remove the fade-out class to fade back in
+      setTimeout(() => {
+        aboutContent.classList.remove('fade-out');
+      }, 50);
+    }, 300);
   });
 
   let sortTimeout;
