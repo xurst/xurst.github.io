@@ -3,11 +3,9 @@
 
   async function fetchTopProjects() {
     try {
-      // Show loading placeholder
       featuredGrid.innerHTML =
         '<div class="featured-placeholder">loading featured projects...</div>';
 
-      // Get featured repos using the optimized function
       const topRepos = await GitHubAPI.getFeaturedRepos();
 
       if (topRepos.length === 0) {
@@ -16,11 +14,9 @@
         return;
       }
 
-      // Create project cards one by one (same as in main.js)
       const projectCards = [];
       for (const repo of topRepos) {
         try {
-          // Get repo details for homepage URL
           const details = await GitHubAPI.getRepoDetails(repo.name);
           const fullRepo = { ...repo, homepage: details.homepage };
 
@@ -29,23 +25,18 @@
           const languages = await GitHubAPI.getRepoLanguages(repo.name);
           const category = getProjectCategory(fullRepo);
 
-          // Clean description - remove parentheses tags
           let description = fullRepo.description || "no description available";
           description = description.replace(/\s*\([^)]*\)\s*$/, "");
 
-          // Format languages
           let languagesHtml = "";
           if (languages && Object.keys(languages).length > 0) {
-            // Sort languages by bytes (most used first)
             const sortedLangs = Object.entries(languages)
               .sort((a, b) => b[1] - a[1])
               .map((entry) => entry[0].toLowerCase());
 
-            // Take only the top 3 languages
             const topLangs = sortedLangs.slice(0, 3);
 
             if (topLangs.length > 0) {
-              // Format with proper English grammar
               let langText = "";
               if (topLangs.length === 1) {
                 langText = topLangs[0];
@@ -64,7 +55,6 @@
             }
           }
 
-          // Calculate featured rank
           const rank = topRepos.indexOf(repo) + 1;
 
           const card = `
@@ -111,20 +101,16 @@
         }
       }
 
-      // Clear placeholder and display featured projects
       featuredGrid.innerHTML = "";
 
-      // Add each card to the grid
       projectCards.forEach((cardHtml) => {
         featuredGrid.innerHTML += cardHtml;
       });
 
-      // Add class for styling
       document.querySelectorAll(".featured-project").forEach((card) => {
         card.classList.add("fade-in");
       });
 
-      // Re-initialize fade-in animations
       const fadeInElems = document.querySelectorAll(
         ".featured-project.fade-in"
       );
@@ -144,16 +130,12 @@
     }
   }
 
-  // Helper function to determine project category
   function getProjectCategory(repo) {
-    // Default category
     let category = "project";
 
-    // Check description for explicit category in parentheses - (game), (project), (utility)
     const description = (repo.description || "").toLowerCase();
 
-    // Look for pattern like "project name (category)"
-    const categoryPattern = /\(([^)]+)\)$/; // Matches text in parentheses at the end
+    const categoryPattern = /\(([^)]+)\)$/;
     const match = description.match(categoryPattern);
 
     if (match) {
@@ -163,7 +145,6 @@
       }
     }
 
-    // Fallback to keyword detection if no explicit category
     if (
       description.includes("game") ||
       repo.name.toLowerCase().includes("game")
@@ -181,6 +162,5 @@
     return category;
   }
 
-  // Initialize
   document.addEventListener("DOMContentLoaded", fetchTopProjects);
 })();

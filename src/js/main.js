@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let activeFilter = "all";
   let activeTypeFilter = "all";
 
-  // Initialize the social dropdown functionality
   const socialDropdownToggle = document.querySelector('.social-dropdown-toggle');
   const socialDropdown = document.querySelector('.social-dropdown');
   
@@ -22,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
       socialDropdown.classList.toggle('active');
     });
     
-    // Close the dropdown when clicking outside
     document.addEventListener('click', (e) => {
       if (!socialDropdown.contains(e.target)) {
         socialDropdown.classList.remove('active');
@@ -97,17 +95,14 @@ document.addEventListener("DOMContentLoaded", () => {
   function formatLanguages(languages) {
     if (!languages || Object.keys(languages).length === 0) return "";
 
-    // Sort languages by bytes (most used first)
     const sortedLangs = Object.entries(languages)
       .sort((a, b) => b[1] - a[1])
       .map((entry) => entry[0].toLowerCase());
 
-    // Take only the top 3 languages
     const topLangs = sortedLangs.slice(0, 3);
 
     if (topLangs.length === 0) return "";
 
-    // Format with proper English grammar
     let langText = "";
     if (topLangs.length === 1) {
       langText = topLangs[0];
@@ -125,16 +120,12 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
   }
 
-  // Determine project category from repo description or topics
   function getProjectCategory(repo) {
-    // Default category
     let category = "project";
 
-    // Check description for explicit category in parentheses - (game), (project), (utility)
     const description = (repo.description || "").toLowerCase();
 
-    // Look for pattern like "project name (category)"
-    const categoryPattern = /\(([^)]+)\)$/; // Matches text in parentheses at the end
+    const categoryPattern = /\(([^)]+)\)$/;
     const match = description.match(categoryPattern);
 
     if (match) {
@@ -144,7 +135,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // Fallback to keyword detection if no explicit category
     if (
       description.includes("game") ||
       repo.name.toLowerCase().includes("game")
@@ -170,9 +160,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const category = getProjectCategory(repo);
     const projectType = visitType.includes("website") ? "website" : "repo";
 
-    // Clean description by removing category tags at the end
     let description = repo.description || "no description available.";
-    description = description.replace(/\s*\([^)]*\)\s*$/, ""); // Remove parentheses at the end
+    description = description.replace(/\s*\([^)]*\)\s*$/, "");
 
     return `
             <div class="project-card" data-name="${repo.name}" data-date="${
@@ -215,7 +204,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function fetchRepos() {
     try {
-      // Show loading indicator
       projectsGrid.innerHTML = '<div class="loading">loading projects...</div>';
 
       const repos = await GitHubAPI.getUserRepos();
@@ -237,7 +225,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const reposWithDetails = await Promise.all(repoDetailsPromises);
 
-      // Create project cards one by one
       const projectCards = [];
       for (const repo of reposWithDetails) {
         const card = await createProjectCard(repo);
@@ -309,21 +296,17 @@ document.addEventListener("DOMContentLoaded", () => {
         .querySelector("p")
         .textContent.toLowerCase();
 
-      // Check if matches search term
       const matchesSearch =
         searchTerm === "" ||
         projectName.includes(searchTerm) ||
         projectDescription.includes(searchTerm);
 
-      // Check if matches category filter
       const matchesCategory =
         activeFilter === "all" || projectCategory === activeFilter;
 
-      // Check if matches type filter
       const matchesType =
         activeTypeFilter === "all" || projectType === activeTypeFilter;
 
-      // Show or hide based on combined filters
       if (matchesSearch && matchesCategory && matchesType) {
         card.style.display = "";
       } else {
@@ -356,17 +339,14 @@ document.addEventListener("DOMContentLoaded", () => {
       projectsGrid.appendChild(fragment);
     });
 
-    // Apply filters after sorting
     filterProjects();
   }
 
-  // Function to initialize about content
   aboutContent.innerHTML = `
     <div class="content-wrapper">${aboutContentData[aboutSelector.value]}</div>
     <div class="swipe-transition"></div>
   `;
 
-  // Improved event listener with proper error handling
   aboutSelector.addEventListener("change", (e) => {
     const contentWrapper = aboutContent.querySelector('.content-wrapper');
     if (!contentWrapper) {
@@ -377,20 +357,16 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     }
     
-    // Add the active class to trigger the swipe animation
     aboutContent.classList.add('swipe-active');
     
-    // Change content after the swipe has covered the content
     setTimeout(() => {
       const newWrapper = aboutContent.querySelector('.content-wrapper');
       if (newWrapper) {
         newWrapper.innerHTML = aboutContentData[e.target.value];
       } else {
-        // Fallback if wrapper still not found
         aboutContent.innerHTML = aboutContentData[e.target.value];
       }
       
-      // Remove the active class to swipe back out
       setTimeout(() => {
         aboutContent.classList.remove('swipe-active');
       }, 50);
@@ -415,7 +391,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 0);
   });
 
-  // Add event listeners for search and filtering
   projectSearch.addEventListener("input", filterProjects);
   categoryFilter.addEventListener("change", (e) => {
     activeFilter = e.target.value;

@@ -78,11 +78,11 @@
 
 .social-dropdown {
     display: none;
-    position: fixed; /* Changed from absolute to fixed */
-    bottom: 5px;
+    position: fixed;
+    bottom: 3px;
     right: 5px;
     width: fit-content;
-    z-index: 9999; /* Extremely high z-index */
+    z-index: 9999;
 }
 
 .social-dropdown-toggle {
@@ -104,14 +104,14 @@
     display: none;
     position: absolute;
     background-color: rgba(20, 20, 20, 0.95);
-    min-width: 160px; /* Increased width */
+    min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
-    z-index: 9999; /* Extremely high z-index */
+    z-index: 9999;
     border-radius: 4px;
-    padding: 8px 0; /* More padding */
-    bottom: 100%; /* Positioned above button instead of below */
+    padding: 8px 0;
+    bottom: 100%;
     right: 0;
-    margin-bottom: 5px; /* Space between dropdown and button */
+    margin-bottom: 5px;
 }
 
 .social-dropdown-content a {
@@ -217,7 +217,7 @@
 
 @media (max-width: 480px) {
     .profile-section {
-        padding: 20px 12px 50px 12px; /* Increased bottom padding for dropdown */
+        padding: 20px 12px 50px 12px;
         margin-bottom: 20px;
     }
     
@@ -243,7 +243,6 @@
     }
 }
 
-/* Projects Section */
 .projects-section h2 {
     margin-bottom: 0.5rem;
     text-align: center;
@@ -264,11 +263,10 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 20px;
-    grid-auto-rows: min-content; /* Ensures rows only take as much height as needed */
+    grid-auto-rows: min-content;
     align-items: stretch;
 }
 
-/* This ensures consistent height alignment */
 .projects-grid > * {
     height: fit-content;
 }
@@ -312,7 +310,6 @@
     color: rgba(255, 255, 255, 0.8);
 }
 
-/* About Section */
 .about-me-section {
     background: rgba(0, 0, 0, 0.8);
     border: 2px solid rgba(60, 60, 60, 0.5);
@@ -344,7 +341,7 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 30px;
-    margin-bottom: 0; /* Removed the 30px margin */
+    margin-bottom: 0;
 }
 
 .about-column {
@@ -363,7 +360,7 @@
 #aboutContent {
     position: relative;
     overflow: hidden;
-    min-height: 150px; /* Adjust based on your content */
+    min-height: 150px;
 }
 
 .content-wrapper {
@@ -375,7 +372,7 @@
     position: absolute;
     top: 0;
     left: -100%;
-    width: 120%; /* Slightly wider to ensure full coverage */
+    width: 120%;
     height: 100%;
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.8), rgba(30, 30, 30, 0.9), rgba(0, 0, 0, 0.8));
     z-index: 10;
@@ -398,7 +395,6 @@
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* Skills Grid */
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -434,7 +430,6 @@
     font-size: 0.9rem;
 }
 
-/* Old styles kept for compatibility */
 .languages-list {
     list-style: none;
     padding: 0;
