@@ -47,10 +47,10 @@
     const detectionThresholds = {
       profileBottom: 20,  // When to stop highlighting profile
       projectsTop: 50,    // When to start highlighting projects
-      projectsBottom: 93, // When to stop highlighting projects
+      projectsBottom: 1, // When to stop highlighting projects
       featuredTop: 100,    // When to start highlighting featured
       featuredBottom: 20, // When to stop highlighting featured
-      aboutTop: 200        // When to start highlighting about
+      aboutTop: 400        // When to start highlighting about
     };
     
     return [
@@ -89,7 +89,7 @@
   const scrollOffsets = {
     profile: 0,            // Top of page
     projects: -95,         // Adjust this value to scroll higher/lower
-    featured: -100,         // Adjust this value to scroll higher/lower
+    featured: -95,         // Adjust this value to scroll higher/lower
     about: 200               // Adjust this value to scroll higher/lower
   };
   

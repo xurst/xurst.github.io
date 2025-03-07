@@ -5,7 +5,7 @@
     padding: 20px;
     text-align: center;
     backdrop-filter: blur(8px);
-    transition: all 0.3s ease, border-color 0.3s ease;
+    transition: all 0.3s ease, border-color 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     width: 100%;
     max-width: 800px;
     margin: 0 auto 30px;
@@ -116,7 +116,7 @@
     padding: 30px;
     margin-top: 30px;
     backdrop-filter: blur(8px);
-    transition: all 0.3s ease, border-color 0.3s ease;
+    transition: all 0.3s ease, border-color 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .about-me-section:hover {

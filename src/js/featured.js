@@ -86,21 +86,19 @@
                 <span class="click-indicator"><i class="fas fa-arrow-right"></i> click to visit</span>
               </div>
               <p>${description}</p>
-              <div class="project-info">
-                <div class="last-updated">
-                  <i class="fas fa-history"></i>
-                  <span>last updated: ${new Date(fullRepo.pushed_at).toLocaleDateString('en-US', {
-                    month: 'short',
-                    day: 'numeric',
-                    year: 'numeric'
-                  }).toLowerCase()}</span>
-                </div>
-                <div class="project-stars">
-                  <i class="fas fa-star"></i>
-                  <span>${fullRepo.stargazers_count} stars</span>
-                </div>
+              <div class="last-updated">
+                <i class="fas fa-history"></i>
+                <span>last updated: ${new Date(fullRepo.pushed_at).toLocaleDateString('en-US', {
+                  month: 'short',
+                  day: 'numeric',
+                  year: 'numeric'
+                }).toLowerCase()}</span>
               </div>
               ${languagesHtml}
+              <div class="project-languages">
+                <i class="fas fa-star"></i>
+                <span>${fullRepo.stargazers_count} stars</span>
+              </div>
             </div>
           `;
           
