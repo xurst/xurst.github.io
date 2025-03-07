@@ -1,10 +1,14 @@
 /* scroll_fade.js */
 
 (function() {
+  // Prevent scroll on page load
+  history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+  
   // Create and insert Scroll-to-Top Button
   const scrollBtn = document.createElement('button');
   scrollBtn.id = 'scrollToTopBtn';
-  scrollBtn.textContent = '↑ top';
+  scrollBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
   document.body.appendChild(scrollBtn);
 
   // Add fade-in class to all major elements
@@ -41,7 +45,7 @@
       });
     }, {
       rootMargin: '0px',
-      threshold: 0.1
+      threshold: 0.05  // More sensitive threshold
     });
     
     fadeInElems.forEach((el) => fadeInObserver.observe(el));

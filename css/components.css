@@ -140,7 +140,9 @@
   }
   
   .sort-button-animate {
-    animation: sortButtonClick 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    transform-origin: center center;
+    position: relative;
+    z-index: 5;
 }
 
 .sort-button:hover {

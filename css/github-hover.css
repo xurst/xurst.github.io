@@ -22,6 +22,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
+  white-space: nowrap;
 }
 
 .project-header a:hover .project-title-text {
