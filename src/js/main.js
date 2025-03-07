@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <p>i'm currently working on several new projects and continuously improving my skills in different programming languages.</p>
         `,
     languages: `
-            <h3>PROGRAMMING LANGUAGES</h3>
+            <h3>PROGRAMMING LANGUAGES IM GOOD AT</h3>
             <div class="skills-grid">
                 <div class="skill-item">
                     <i class="fab fa-js"></i>

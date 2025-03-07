@@ -21,7 +21,7 @@
       );
 
       // Get top 3 (or fewer if there aren't 3)
-      const topRepos = sortedRepos.slice(0, 3);
+      const topRepos = sortedRepos.slice(0, 4);
 
       if (topRepos.length === 0) {
         featuredGrid.innerHTML =

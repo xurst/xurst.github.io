@@ -319,6 +319,12 @@
     transition: all 0.3s ease;
 }
 
+.search-box .fa-search {
+    transform: rotate(90deg);
+    transform: scaleX(-1);
+    top: 0.74rem;
+}
+
 .project-card:hover .project-languages {
     color: rgba(255, 255, 255, 0.8);
 }
