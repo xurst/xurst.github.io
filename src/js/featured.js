@@ -67,7 +67,10 @@
           }" data-category="${category}" data-type="${visitType}">
               <div class="featured-badge">featured</div>
               <div class="project-header">
-                <a href="${projectUrl}" target="_blank">${fullRepo.name}</a>
+                <a href="${projectUrl}" target="_blank" data-repo-url="${fullRepo.html_url}">
+                  <span class="project-title-text">${fullRepo.name}</span>
+                  <span class="github-icon"><i class="fab fa-github"></i> view repo</span>
+                </a>
                 <div class="project-tags">
                   <span class="project-category ${category}">${category}</span>
                   <span class="project-category ${visitType}">${visitType}</span>

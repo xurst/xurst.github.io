@@ -1,0 +1,39 @@
+/* GitHub icon hover effect */
+.project-header a {
+  position: relative;
+  display: inline-block;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.project-header a .project-title-text {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+}
+
+.project-header a .github-icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.project-header a:hover .project-title-text {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.project-header a:hover .github-icon {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-header a .github-icon i {
+  font-size: 1.1em;
+}
