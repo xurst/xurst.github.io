@@ -19,6 +19,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT }}
+          fetch-depth: 0
       
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -30,16 +33,16 @@ jobs:
       
       - name: Fetch GitHub repository data
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
           mkdir -p data
           node .github/scripts/fetch-repo-data.js
       
       - name: Commit and push if there are changes
         run: |
-          git config --local user.email "action@github.com"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "GitHub Action"
           git add data/
           # Commit only if there are changes
           git diff --staged --quiet || git commit -m "Update repository data"
-          git push
+          git push https://${{ secrets.PAT }}@github.com/xurst/xurst.github.io.git HEAD:main
