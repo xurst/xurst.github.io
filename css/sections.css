@@ -3,13 +3,16 @@
     border: 2px solid rgba(60, 60, 60, 0.5);
     border-radius: 13px;
     padding: 20px;
-    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     backdrop-filter: blur(8px);
     transition: all 0.3s ease, border-color 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     width: 100%;
     max-width: 800px;
     margin: 0 auto 30px;
-    height: 300px;
+    min-height: 200px;
 }
 
 .profile-section:hover {
@@ -17,12 +20,17 @@
     transform: translateX(5px);
 }
 
+.profile-content {
+    flex: 1;
+    text-align: center;
+    padding: 0 15px;
+}
+
 .profile-img {
-    width: 150px;
-    height: 150px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
     border: 2px solid rgba(60, 60, 60, 0.5);
-    margin-bottom: 1rem;
     transition: all 0.3s ease;
     object-fit: cover;
 }
@@ -32,22 +40,50 @@
 }
 
 .portfolio-title {
-    margin-top: -0.8rem;
+    margin: 0 0 10px 0;
 }
 
-.github-link {
+.profile-description {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    margin: 0;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.profile-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.social-icon-link {
     display: inline-block;
     color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
-    font-size: 2.25rem;
-    margin-top: -1.4rem;
-    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
     transition: all 0.3s ease;
     padding: 5px 10px;
 }
 
-.github-link:hover {
+.social-icon-link:hover {
     color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 600px) {
+    .profile-section {
+        flex-direction: column;
+        padding: 25px 15px;
+    }
+    
+    .profile-img {
+        margin-bottom: 15px;
+    }
+    
+    .profile-links {
+        flex-direction: row;
+        margin-top: 20px;
+    }
 }
 
 /* Projects Section */
@@ -63,6 +99,9 @@
     font-size: 0.9rem;
     margin-bottom: 1.5rem;
     font-style: italic;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .projects-grid {
@@ -165,12 +204,31 @@
 }
 
 #aboutContent {
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-height: 150px; /* Adjust based on your content */
 }
 
-#aboutContent.fade-out {
-    opacity: 0;
-    transform: translateY(10px);
+.content-wrapper {
+    width: 100%;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.swipe-transition {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 120%; /* Slightly wider to ensure full coverage */
+    height: 100%;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.8), rgba(30, 30, 30, 0.9), rgba(0, 0, 0, 0.8));
+    z-index: 10;
+    pointer-events: none;
+    transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+    transform: translateX(0%);
+}
+
+.swipe-active .swipe-transition {
+    transform: translateX(100%);
 }
 
 .about-column:not(:last-child)::after {

@@ -343,19 +343,41 @@ document.addEventListener("DOMContentLoaded", () => {
     filterProjects();
   }
 
-  aboutSelector.addEventListener("change", (e) => {
-    // Add the fade-out class for transition
-    aboutContent.classList.add('fade-out');
-    
-    // Wait for the transition to complete before changing content
-    setTimeout(() => {
-      aboutContent.innerHTML = aboutContentData[e.target.value];
+  // Initialize the about content with a swipe transition element
+  function initAboutContent() {
+    // Create swipe transition element if it doesn't exist
+    if (!document.querySelector('.swipe-transition')) {
+      const swipeTransition = document.createElement('div');
+      swipeTransition.className = 'swipe-transition';
+      aboutContent.appendChild(swipeTransition);
       
-      // Remove the fade-out class to fade back in
+      // Wrap content in a content wrapper if it doesn't exist
+      if (!document.querySelector('.content-wrapper')) {
+        const contentHtml = aboutContent.innerHTML;
+        aboutContent.innerHTML = `<div class="content-wrapper">${contentHtml}</div>`;
+        aboutContent.appendChild(swipeTransition);
+      }
+    }
+  }
+  
+  // Call the init function once
+  initAboutContent();
+  
+  aboutSelector.addEventListener("change", (e) => {
+    const contentWrapper = aboutContent.querySelector('.content-wrapper');
+    
+    // Add the active class to trigger the swipe animation
+    aboutContent.classList.add('swipe-active');
+    
+    // Change content after the swipe has covered the content
+    setTimeout(() => {
+      contentWrapper.innerHTML = aboutContentData[e.target.value];
+      
+      // Remove the active class to swipe back out
       setTimeout(() => {
-        aboutContent.classList.remove('fade-out');
+        aboutContent.classList.remove('swipe-active');
       }, 50);
-    }, 300);
+    }, 250); // Half the transition time to change content mid-animation
   });
 
   let sortTimeout;
