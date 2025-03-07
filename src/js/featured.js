@@ -7,15 +7,17 @@
         '<div class="featured-placeholder">loading featured projects...</div>';
 
       const topRepos = await GitHubAPI.getFeaturedRepos();
+      
+      const filteredRepos = topRepos.filter(repo => repo.name !== "xurst.github.io");
 
-      if (topRepos.length === 0) {
+      if (filteredRepos.length === 0) {
         featuredGrid.innerHTML =
           '<div class="featured-placeholder">no featured projects available</div>';
         return;
       }
 
       const projectCards = [];
-      for (const repo of topRepos) {
+      for (const repo of filteredRepos) {
         try {
           const details = await GitHubAPI.getRepoDetails(repo.name);
           const fullRepo = { ...repo, homepage: details.homepage };

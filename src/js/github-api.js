@@ -29,35 +29,13 @@
     }
   };
   
-  async function loadLocalData(file) {
-    try {
-      const response = await fetch(`/data/${file}`);
-      if (!response.ok) {
-        throw new Error(`Failed to load ${file}`);
-      }
-      return await response.json();
-    } catch (error) {
-      console.warn(`Local data file (${file}) not found or invalid, falling back to API`);
-      return null;
-    }
-  }
-  
   async function fetchFromGitHub(endpoint, options = {}) {
-    if (endpoint === `/users/${GITHUB_USERNAME}/repos`) {
-      const localData = await loadLocalData('repositories.json');
-      if (localData) {
-        console.log('Using local repositories data');
-        return localData;
-      }
-    } else if (endpoint.includes('/languages')) {
-    }
-    
     const url = endpoint.startsWith('http') ? endpoint : `${GITHUB_API_BASE}${endpoint}`;
     const cacheKey = endpoint.replace(/[^a-zA-Z0-9]/g, '_');
     
     const cachedData = cache.get(cacheKey);
     if (cachedData) {
-      console.log(`Using cached data for ${endpoint}`);
+      console.log(`using cached data for ${endpoint}`);
       return cachedData;
     }
     
@@ -117,32 +95,13 @@
   }
   
   async function getRepoLanguages(repoName) {
-    try {
-      const repos = await loadLocalData('repositories.json');
-      if (repos) {
-        const repo = repos.find(r => r.name === repoName);
-        if (repo && repo.languages) {
-          console.log(`Using local language data for ${repoName}`);
-          return repo.languages;
-        }
-      }
-    } catch (error) {
-      console.warn('Error loading local language data, falling back to API');
-    }
-    
     return fetchWithRetry(`/repos/${GITHUB_USERNAME}/${repoName}/languages`);
   }
   
   async function getFeaturedRepos() {
-    const featuredRepos = await loadLocalData('featured-repositories.json');
-    if (featuredRepos) {
-      console.log('Using local featured repositories data');
-      return featuredRepos;
-    }
-    
     const repos = await fetchWithRetry(`/users/${GITHUB_USERNAME}/repos`);
     return repos
-      .filter(repo => !repo.fork)
+      .filter(repo => !repo.fork && repo.name !== "xurst.github.io")
       .sort((a, b) => b.stargazers_count - a.stargazers_count)
       .slice(0, 4);
   }
