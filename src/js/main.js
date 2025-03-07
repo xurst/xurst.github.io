@@ -151,8 +151,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const languages = await getLanguages(repo);
     const languagesHtml = formatLanguages(languages);
     const category = getProjectCategory(repo);
-    const projectType = visitType.includes('website') ? 'website' : 'repo';
-    
+    const projectType = visitType.includes("website") ? "website" : "repo";
+
     // Clean description by removing category tags at the end
     let description = repo.description || "no description available.";
     description = description.replace(/\s*\([^)]*\)\s*$/, ""); // Remove parentheses at the end
@@ -175,6 +175,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     <span>last updated: ${formatDate(repo.pushed_at)}</span>
                 </div>
                 ${languagesHtml}
+<div class="project-languages stars-info">
+    <i class="fas fa-star"></i>
+    <span>${
+      repo.stargazers_count === 1 ? "1 star" : `${repo.stargazers_count} stars`
+    }</span>
+</div>
             </div>
         `;
   }
@@ -194,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       // Show loading indicator
       projectsGrid.innerHTML = '<div class="loading">loading projects...</div>';
-      
+
       const repos = await GitHubAPI.getUserRepos();
 
       const repoDetailsPromises = repos
@@ -253,8 +259,8 @@ document.addEventListener("DOMContentLoaded", () => {
       sortAlphaButton.classList.remove("active");
       sortDateButton.querySelector("i").className =
         activeSort === "date-desc"
-          ? "fas fa-sort-amount-up"
-          : "fas fa-sort-amount-down";
+          ? "fas fa-sort-amount-down"
+          : "fas fa-sort-amount-up";
       sortAlphaButton.querySelector("i").className = "fas fa-sort-alpha-down";
     } else {
       sortAlphaButton.classList.add("active");
@@ -263,7 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
         activeSort === "alpha-desc"
           ? "fas fa-sort-alpha-up"
           : "fas fa-sort-alpha-down";
-      sortDateButton.querySelector("i").className = "fas fa-sort-amount-down";
+      sortDateButton.querySelector("i").className = "fas fa-sort-amount-up";
     }
   }
 
@@ -295,7 +301,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Check if matches category filter
       const matchesCategory =
         activeFilter === "all" || projectCategory === activeFilter;
-        
+
       // Check if matches type filter
       const matchesType =
         activeTypeFilter === "all" || projectType === activeTypeFilter;

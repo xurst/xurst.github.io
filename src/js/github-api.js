@@ -3,28 +3,30 @@
 (function() {
   const GITHUB_USERNAME = 'xurst';
   const GITHUB_API_BASE = 'https://api.github.com';
+  let cachedToken = null;
   
   // Function to get GitHub token with multiple fallback options
   async function getGithubToken() {
-    // Try to get from localStorage first (if previously stored)
-    const storedToken = localStorage.getItem('github_token');
-    if (storedToken) return storedToken;
-
+    // Return cached token if available
+    if (cachedToken) {
+      return cachedToken;
+    }
+    
     // Check URL parameters (useful for testing)
     const urlParams = new URLSearchParams(window.location.search);
     const urlToken = urlParams.get('github_token');
     if (urlToken) {
-      localStorage.setItem('github_token', urlToken);
       console.log('GitHub token loaded from URL parameter');
-      return urlToken;
+      cachedToken = urlToken;
+      return cachedToken;
     }
     
     // Hardcoded token option - enable this for development
     const hardcodedToken = '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';
     if (hardcodedToken) {
-      localStorage.setItem('github_token', hardcodedToken);
       console.log('Using hardcoded GitHub token');
-      return hardcodedToken;
+      cachedToken = hardcodedToken;
+      return cachedToken;
     }
     
     console.warn('Unable to load GitHub token');
@@ -121,7 +123,7 @@
     hasToken: async () => !!(await getGithubToken()),
     // Add a clear cache method for debugging
     clearTokenCache: () => {
-      localStorage.removeItem('github_token');
+      cachedToken = null;
       console.log('GitHub token cache cleared');
     }
   };

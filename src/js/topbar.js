@@ -65,9 +65,24 @@
   function updateActiveState() {
     const scrollPos = window.scrollY + 50;
     const sections = getSectionPositions();
+    const documentHeight = Math.max(
+      document.body.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.clientHeight,
+      document.documentElement.scrollHeight,
+      document.documentElement.offsetHeight
+    );
+    const scrollBottom = window.scrollY + window.innerHeight;
     
     // Remove all active classes
     sections.forEach(item => item.el && item.el.classList.remove('active'));
+    
+    // Special case for About section - it's at the bottom
+    // If we're near the bottom of the page, highlight about
+    if (scrollBottom >= documentHeight - 100 && topAbout) {
+      topAbout.classList.add('active');
+      return;
+    }
     
     // Add active class to the current section
     for (const item of sections) {

@@ -101,9 +101,11 @@
   color: rgba(0, 0, 0, 0.8);
   font-size: 0.7rem;
   font-weight: 600;
-  padding: 4px 12px; /* Made wider */
+  padding: 4px 15px; /* Made even wider */
   border-radius: 0 13px 0 13px;
   z-index: 2;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .featured-placeholder {
@@ -111,6 +113,7 @@
   text-align: center;
   padding: 30px;
   color: rgba(255, 255, 255, 0.5);
+  animation: pulse 1.5s infinite ease-in-out;
 }
 
 @media (max-width: 768px) {
