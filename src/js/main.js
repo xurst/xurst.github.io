@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let activeSort = "alpha-asc";
   let activeFilter = "all";
   let activeTypeFilter = "all";
+  let alphaBtnAnimating = false;
+  let dateBtnAnimating = false;
 
   const socialDropdownToggle = document.querySelector('.social-dropdown-toggle');
   const socialDropdown = document.querySelector('.social-dropdown');
@@ -376,19 +378,49 @@ document.addEventListener("DOMContentLoaded", () => {
   let sortTimeout;
   sortAlphaButton.addEventListener("click", () => {
     if (sortTimeout) clearTimeout(sortTimeout);
-    activeSort = activeSort === "alpha-asc" ? "alpha-desc" : "alpha-asc";
-    updateSortButtons(false);
-    sortTimeout = setTimeout(() => {
-      sortProjects(false);
-    }, 0);
+    
+    // Only animate if not already animating
+    if (!alphaBtnAnimating) {
+      alphaBtnAnimating = true;
+      
+      // Add animation class
+      sortAlphaButton.classList.add('sort-button-animate');
+      
+      // Remove animation class and reset flag when animation completes
+      setTimeout(() => {
+        sortAlphaButton.classList.remove('sort-button-animate');
+        alphaBtnAnimating = false;
+      }, 400);
+      
+      activeSort = activeSort === "alpha-asc" ? "alpha-desc" : "alpha-asc";
+      updateSortButtons(false);
+      sortTimeout = setTimeout(() => {
+        sortProjects(false);
+      }, 0);
+    }
   });
   sortDateButton.addEventListener("click", () => {
     if (sortTimeout) clearTimeout(sortTimeout);
-    activeSort = activeSort === "date-asc" ? "date-desc" : "date-asc";
-    updateSortButtons(true);
-    sortTimeout = setTimeout(() => {
-      sortProjects(true);
-    }, 0);
+    
+    // Only animate if not already animating
+    if (!dateBtnAnimating) {
+      dateBtnAnimating = true;
+      
+      // Add animation class
+      sortDateButton.classList.add('sort-button-animate');
+      
+      // Remove animation class and reset flag when animation completes
+      setTimeout(() => {
+        sortDateButton.classList.remove('sort-button-animate');
+        dateBtnAnimating = false;
+      }, 400);
+      
+      activeSort = activeSort === "date-asc" ? "date-desc" : "date-asc";
+      updateSortButtons(true);
+      sortTimeout = setTimeout(() => {
+        sortProjects(true);
+      }, 0);
+    }
   });
 
   projectSearch.addEventListener("input", filterProjects);
