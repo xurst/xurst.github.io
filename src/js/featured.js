@@ -114,6 +114,15 @@
 
       document.querySelectorAll(".featured-project").forEach((card) => {
         card.classList.add("fade-in");
+        
+        // Add click handler for featured cards
+        const link = card.querySelector("a");
+        card.addEventListener("click", (e) => {
+          // Only trigger if the click was not on the link itself or any of its children
+          if (!e.target.closest('a') && link) {
+            link.click();
+          }
+        });
       });
 
       const fadeInElems = document.querySelectorAll(

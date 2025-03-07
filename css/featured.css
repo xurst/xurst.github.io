@@ -102,7 +102,7 @@
 
 .featured-badge {
   position: absolute;
-  top: 0;
+  top: -4px;
   right: 0;
   background: linear-gradient(135deg, #FFC107 0%, #FF9800 100%);
   color: rgba(0, 0, 0, 0.8);

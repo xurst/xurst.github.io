@@ -255,7 +255,8 @@ document.addEventListener("DOMContentLoaded", () => {
     projectCards.forEach((card) => {
       const link = card.querySelector("a");
       card.addEventListener("click", (e) => {
-        if (e.target !== link && link) {
+        // Only trigger if the click was not on the link itself or any of its children
+        if (!e.target.closest('a') && link) {
           link.click();
         }
       });
