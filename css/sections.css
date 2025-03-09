@@ -365,24 +365,38 @@
 
 .content-wrapper {
     width: 100%;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: opacity 0.2s ease;
+    opacity: 1;
 }
 
 .swipe-transition {
     position: absolute;
     top: 0;
-    left: -100%;
-    width: 120%;
+    width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.8), rgba(30, 30, 30, 0.9), rgba(0, 0, 0, 0.8));
+    background: rgba(75, 75, 75, 0.9); /* Grey rectangle - slightly lighter for better visibility */
     z-index: 10;
     pointer-events: none;
-    transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
-    transform: translateX(0%);
+    transition: transform 0.55s cubic-bezier(0.645, 0.045, 0.355, 1); /* Smoother easing */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
 }
 
-.swipe-active .swipe-transition {
-    transform: translateX(100%);
+/* Right to Left transition (when going from who to languages) */
+.swipe-right-to-left .swipe-transition {
+    left: 100%; /* Start position: right side */
+    transform: translateX(-100%); /* Move to left */
+}
+
+/* Left to Right transition (when going from languages to who) */
+.swipe-left-to-right .swipe-transition {
+    left: -100%; /* Start position: left side */
+    transform: translateX(100%); /* Move to right */
+}
+
+/* Fade content during transition */
+.swipe-right-to-left .content-wrapper,
+.swipe-left-to-right .content-wrapper {
+    opacity: 0.2; /* Fade out content during transition */
 }
 
 .about-column:not(:last-child)::after {

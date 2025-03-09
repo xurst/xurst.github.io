@@ -15,8 +15,7 @@
     box-sizing: border-box;
     flex-shrink: 0;
     flex-grow: 0;
-    /* Appear immediately without fade */
-    opacity: 1 !important;
+    /* Let fade effect handle opacity */
 }
 
 .project-info {

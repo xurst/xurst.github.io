@@ -52,7 +52,8 @@ class ScrollFade {
         '.profile-section',
         '.projects-section h2',
         '.projects-controls',
-        // Removed .project-card to stop auto-adding fade
+        '.project-card',
+        '.featured-project',
         '.about-me-section',
         '.featured-section',
         '.about-content',
@@ -466,7 +467,8 @@ document.addEventListener('DOMContentLoaded', () => {
   window.scrollFade = new ScrollFade({
     resetScrollOnPageLoad: true,          // Reset scroll position on page load
     enableStaggering: true,               // Enable staggered animations
-    staggerSelector: '.stagger-item',     // Selector for staggered elements
+    staggerSelector: '.project-card',     // Apply staggering to project cards
+    staggerDelay: 0.1,                   // Small delay between cards
     observerThreshold: 0.05,              // Lower threshold for better visibility
     debug: false                          // Set to true for debug logging
   });

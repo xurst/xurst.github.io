@@ -154,19 +154,27 @@ document.addEventListener("DOMContentLoaded", () => {
     return category;
   }
 
-  async function createProjectCard(repo) {
+  async function createProjectCard(repo, index) {
     const projectUrl = repo.homepage || repo.html_url;
     const visitType = determineVisitType(repo.homepage);
     const languages = await getLanguages(repo);
     const languagesHtml = formatLanguages(languages);
     const category = getProjectCategory(repo);
     const projectType = visitType.includes("website") ? "website" : "repo";
+    
+    // Alternate between different fade directions based on index
+    const fadeDirections = ['fade-up', 'fade-left', 'fade-right'];
+    const fadeDirection = fadeDirections[index % fadeDirections.length];
+    
+    // Add delay variations
+    const delayClasses = ['', 'fade-delay-100', 'fade-delay-300'];
+    const delayClass = delayClasses[index % delayClasses.length];
 
     let description = repo.description || "no description available.";
     description = description.replace(/\s*\([^)]*\)\s*$/, "");
 
     return `
-            <div class="project-card" data-name="${repo.name}" data-date="${
+            <div class="project-card fade ${fadeDirection} ${delayClass}" data-name="${repo.name}" data-date="${
       repo.pushed_at
     }" data-category="${category}" data-type="${projectType}">
                 <div class="project-header">
@@ -231,8 +239,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const reposWithDetails = await Promise.all(repoDetailsPromises);
 
       const projectCards = [];
-      for (const repo of reposWithDetails) {
-        const card = await createProjectCard(repo);
+      for (let i = 0; i < reposWithDetails.length; i++) {
+        const card = await createProjectCard(reposWithDetails[i], i);
         projectCards.push(card);
       }
 
@@ -243,6 +251,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       addCardClickHandlers();
       sortProjects(false);
+      
+      // Refresh scroll fade to observe new elements
+      if (window.scrollFade) {
+        window.scrollFade.refreshElements();
+      }
     } catch (error) {
       console.error("error fetching repos:", error);
       projectsGrid.innerHTML =
@@ -253,11 +266,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function addCardClickHandlers() {
     const projectCards = document.querySelectorAll(".project-card");
     projectCards.forEach((card) => {
-      // Remove any existing fade-in class
-      if (card.classList.contains('fade-in')) {
-        card.classList.remove('fade-in');
-      }
-      
       const link = card.querySelector("a");
       card.addEventListener("click", (e) => {
         // Only trigger if the click was not on the link itself or any of its children
@@ -358,6 +366,9 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="swipe-transition"></div>
   `;
 
+  // Track the current active tab to determine direction
+  let currentTab = 'who';
+
   aboutSelector.addEventListener("change", (e) => {
     const contentWrapper = aboutContent.querySelector('.content-wrapper');
     if (!contentWrapper) {
@@ -368,20 +379,32 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     }
     
-    aboutContent.classList.add('swipe-active');
+    // Determine the transition direction based on current and new tab
+    const newTab = e.target.value;
+    const direction = (currentTab === 'who' && newTab === 'languages') ? 'right-to-left' : 'left-to-right';
     
+    // Update current tab for next transition
+    currentTab = newTab;
+    
+    // Add the appropriate direction class
+    aboutContent.classList.remove('swipe-right-to-left', 'swipe-left-to-right');
+    aboutContent.classList.add(`swipe-${direction}`);
+    
+    // Create the transition
     setTimeout(() => {
+      // Change content when the transition is halfway through
       const newWrapper = aboutContent.querySelector('.content-wrapper');
       if (newWrapper) {
-        newWrapper.innerHTML = aboutContentData[e.target.value];
+        newWrapper.innerHTML = aboutContentData[newTab];
       } else {
-        aboutContent.innerHTML = aboutContentData[e.target.value];
+        aboutContent.innerHTML = aboutContentData[newTab];
       }
       
+      // Remove the transition class after animation completes
       setTimeout(() => {
-        aboutContent.classList.remove('swipe-active');
-      }, 50);
-    }, 250);
+        aboutContent.classList.remove(`swipe-${direction}`);
+      }, 300); // Match this to the remaining CSS transition duration
+    }, 250); // Time before content changes (about halfway through the transition)
   });
 
   let sortTimeout;

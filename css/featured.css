@@ -1,9 +1,6 @@
 /* Featured Projects Section */
 .featured-project {
-  /* Ensure these are visible immediately without fade */
-  opacity: 1 !important;
-  transform: none !important;
-  visibility: visible !important;
+  /* No override needed - will use fade classes */
 }
 
 .featured-section {

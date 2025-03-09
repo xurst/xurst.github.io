@@ -59,8 +59,14 @@
 
           const rank = topRepos.indexOf(repo) + 1;
 
+          const fadeDirections = ['fade-up', 'fade-left', 'fade-right', 'fade-up-right'];
+          const fadeDirection = fadeDirections[topRepos.indexOf(repo) % fadeDirections.length];
+          
+          const delayClasses = ['', 'fade-delay-100', 'fade-delay-300', 'fade-delay-500'];
+          const delayClass = delayClasses[topRepos.indexOf(repo) % delayClasses.length];
+          
           const card = `
-            <div class="project-card featured-project" data-name="${
+            <div class="project-card featured-project fade ${fadeDirection} ${delayClass}" data-name="${
               fullRepo.name
             }" data-date="${
             fullRepo.pushed_at
@@ -114,12 +120,7 @@
 
       // Add click handlers to featured cards
       document.querySelectorAll(".featured-project").forEach((card) => {
-        // Remove any existing fade-in class
-        if (card.classList.contains('fade-in')) {
-          card.classList.remove('fade-in');
-        }
-        
-        // Only add click handler, no fade-in class
+        // Only add click handler
         const link = card.querySelector("a");
         card.addEventListener("click", (e) => {
           // Only trigger if the click was not on the link itself or any of its children
@@ -129,7 +130,10 @@
         });
       });
 
-      // Skip the fade observer for featured projects since we don't want them to fade
+      // Refresh the scrollFade to observe the new elements
+      if (window.scrollFade) {
+        window.scrollFade.refreshElements();
+      }
     } catch (error) {
       console.error("Error fetching featured projects:", error);
       featuredGrid.innerHTML =
