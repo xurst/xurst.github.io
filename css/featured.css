@@ -1,4 +1,11 @@
 /* Featured Projects Section */
+.featured-project {
+  /* Ensure these are visible immediately without fade */
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+
 .featured-section {
   background: rgba(0, 0, 0, 0.8);
   border: 2px solid rgba(60, 60, 60, 0.5);

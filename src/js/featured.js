@@ -112,10 +112,14 @@
         featuredGrid.innerHTML += cardHtml;
       });
 
+      // Add click handlers to featured cards
       document.querySelectorAll(".featured-project").forEach((card) => {
-        card.classList.add("fade-in");
+        // Remove any existing fade-in class
+        if (card.classList.contains('fade-in')) {
+          card.classList.remove('fade-in');
+        }
         
-        // Add click handler for featured cards
+        // Only add click handler, no fade-in class
         const link = card.querySelector("a");
         card.addEventListener("click", (e) => {
           // Only trigger if the click was not on the link itself or any of its children
@@ -125,18 +129,7 @@
         });
       });
 
-      const fadeInElems = document.querySelectorAll(
-        ".featured-project.fade-in"
-      );
-      const fadeInObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      });
-
-      fadeInElems.forEach((el) => fadeInObserver.observe(el));
+      // Skip the fade observer for featured projects since we don't want them to fade
     } catch (error) {
       console.error("Error fetching featured projects:", error);
       featuredGrid.innerHTML =

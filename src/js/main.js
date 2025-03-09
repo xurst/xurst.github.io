@@ -253,6 +253,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function addCardClickHandlers() {
     const projectCards = document.querySelectorAll(".project-card");
     projectCards.forEach((card) => {
+      // Remove any existing fade-in class
+      if (card.classList.contains('fade-in')) {
+        card.classList.remove('fade-in');
+      }
+      
       const link = card.querySelector("a");
       card.addEventListener("click", (e) => {
         // Only trigger if the click was not on the link itself or any of its children

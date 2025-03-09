@@ -1,52 +1,199 @@
-/* scroll_fade.css */
+/* 
+===================================
+SCROLL FADE TEMPLATE SYSTEM
+===================================
+A modular, customizable system for adding fade effects to elements on scroll
+*/
 
-/* Fade-in Utility */
+/* CSS Variables for Customization */
+:root {
+  /* Base Animation Properties */
+  --fade-duration: 0.8s;
+  --fade-timing: ease;
+  --fade-distance: 30px;
+  --fade-delay: 0s;
+  
+  /* Scroll-to-top Button Properties */
+  --scroll-btn-size: 50px;
+  --scroll-btn-font-size: 18px;
+  --scroll-btn-color: #ffffff;
+  --scroll-btn-bg: #000000;
+  --scroll-btn-border: 2px solid rgba(60, 60, 60, 0.5);
+  --scroll-btn-hover-border: #ffffff;
+  --scroll-btn-radius: 50%;
+  --scroll-btn-bottom: 20px;
+  --scroll-btn-right: 20px;
+  --scroll-btn-z-index: 1000;
+}
+
+/* Base Fade Class - Hidden State */
+.fade {
+  opacity: 0;
+  visibility: hidden;
+  will-change: opacity, transform;
+  transition: 
+    opacity var(--fade-duration) var(--fade-timing) var(--fade-delay),
+    transform var(--fade-duration) var(--fade-timing) var(--fade-delay),
+    visibility var(--fade-duration) var(--fade-timing) var(--fade-delay);
+}
+
+/* Visible State for All Fade Animations */
+.fade.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, 0) scale(1) rotate(0deg);
+}
+
+/* Fade Direction Variants */
+.fade-up {
+  transform: translateY(var(--fade-distance));
+}
+
+.fade-down {
+  transform: translateY(calc(var(--fade-distance) * -1));
+}
+
+.fade-left {
+  transform: translateX(calc(var(--fade-distance) * -1));
+}
+
+.fade-right {
+  transform: translateX(var(--fade-distance));
+}
+
+/* Scale Effects */
+.fade-scale-up {
+  transform: scale(0.8);
+}
+
+.fade-scale-down {
+  transform: scale(1.2);
+}
+
+/* Rotation Effects */
+.fade-rotate-left {
+  transform: rotate(-10deg);
+}
+
+.fade-rotate-right {
+  transform: rotate(10deg);
+}
+
+/* Combo Effects */
+.fade-up-right {
+  transform: translate(var(--fade-distance), var(--fade-distance));
+}
+
+.fade-up-left {
+  transform: translate(calc(var(--fade-distance) * -1), var(--fade-distance));
+}
+
+.fade-down-right {
+  transform: translate(var(--fade-distance), calc(var(--fade-distance) * -1));
+}
+
+.fade-down-left {
+  transform: translate(calc(var(--fade-distance) * -1), calc(var(--fade-distance) * -1));
+}
+
+/* Timing Variants - Add these as additional classes */
+.fade-fast {
+  --fade-duration: 0.4s;
+}
+
+.fade-slow {
+  --fade-duration: 1.5s;
+}
+
+/* Easing Variants - Add these as additional classes */
+.fade-ease-in-out {
+  --fade-timing: cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.fade-ease-out-back {
+  --fade-timing: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.fade-bounce {
+  --fade-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Delay Variants - Add these as additional classes */
+.fade-delay-100 {
+  --fade-delay: 0.1s;
+}
+
+.fade-delay-300 {
+  --fade-delay: 0.3s;
+}
+
+.fade-delay-500 {
+  --fade-delay: 0.5s;
+}
+
+/* Scroll-to-top Button Styling */
+#scrollTopBtn {
+  position: fixed;
+  bottom: var(--scroll-btn-bottom);
+  right: var(--scroll-btn-right);
+  width: var(--scroll-btn-size);
+  height: var(--scroll-btn-size);
+  background-color: var(--scroll-btn-bg);
+  color: var(--scroll-btn-color);
+  border-radius: var(--scroll-btn-radius);
+  border: var(--scroll-btn-border);
+  font-size: var(--scroll-btn-font-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, border-color 0.2s ease, transform 0.1s ease;
+  z-index: var(--scroll-btn-z-index);
+}
+
+#scrollTopBtn:hover {
+  border-color: var(--scroll-btn-hover-border);
+}
+
+#scrollTopBtn:active {
+  transform: scale(0.95);
+}
+
+#scrollTopBtn.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* For backwards compatibility with existing fade-in class */
 .fade-in {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(var(--fade-distance));
+  transition: 
+    opacity var(--fade-duration) var(--fade-timing) var(--fade-delay),
+    transform var(--fade-duration) var(--fade-timing) var(--fade-delay);
 }
+
 .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Scroll-to-top Button */
-#scrollToTopBtn {
-  position: fixed;
-  bottom: 1rem;
-  right: 2rem;
-  background-color: #000000;
-  color: #ffffff;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: opacity 0.4s ease, border-color 0.2s ease, transform 0.1s ease;
-  cursor: pointer;
-  opacity: 0;
-  visibility: hidden;
-  z-index: 1000;
-  border: 2px solid rgba(60, 60, 60, 0.5);
-}
-#scrollToTopBtn:hover {
-  border-color: white;
-}
-#scrollToTopBtn.show {
-  opacity: 1;
-  visibility: visible;
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  :root {
+    --scroll-btn-size: 45px;
+    --scroll-btn-bottom: 15px;
+    --scroll-btn-right: 15px;
+  }
 }
 
-@media (max-width: 22.999rem) {
-  #scrollToTopBtn {
-    right: 1rem;
-    bottom: 1rem;
-    width: 42px;
-    height: 42px;
-    font-size: 14px;
+@media (max-width: 480px) {
+  :root {
+    --scroll-btn-size: 40px;
+    --scroll-btn-bottom: 10px;
+    --scroll-btn-right: 10px;
+    --fade-distance: 20px;
   }
 }
