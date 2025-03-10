@@ -360,37 +360,39 @@
 #aboutContent {
     position: relative;
     overflow: hidden;
-    min-height: 150px;
+    min-height: 200px;
 }
 
 .content-wrapper {
     width: 100%;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.3s ease;
     opacity: 1;
+    position: relative;
+    z-index: 5;
 }
 
 .swipe-transition {
     position: absolute;
     top: 0;
-    width: 100%;
     height: 100%;
-    background: rgba(75, 75, 75, 0.9); /* Grey rectangle - slightly lighter for better visibility */
+    width: 8px; /* Vertical rectangle instead of horizontal */
+    background: rgba(255, 255, 255, 0.2); /* More subtle transition element */
     z-index: 10;
     pointer-events: none;
-    transition: transform 0.55s cubic-bezier(0.645, 0.045, 0.355, 1); /* Smoother easing */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+    transition: transform 0.55s cubic-bezier(0.645, 0.045, 0.355, 1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
 /* Right to Left transition (when going from who to languages) */
 .swipe-right-to-left .swipe-transition {
-    left: 100%; /* Start position: right side */
-    transform: translateX(-100%); /* Move to left */
+    right: -8px; /* Start position: off-screen right (position 1) */
+    transform: translateX(calc(-100% - 100vw)); /* Move to off-screen left (position 0) */
 }
 
 /* Left to Right transition (when going from languages to who) */
 .swipe-left-to-right .swipe-transition {
-    left: -100%; /* Start position: left side */
-    transform: translateX(100%); /* Move to right */
+    left: -8px; /* Start position: off-screen left (position 0) */
+    transform: translateX(calc(100% + 100vw)); /* Move to off-screen right (position 1) */
 }
 
 /* Fade content during transition */

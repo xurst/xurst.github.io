@@ -34,7 +34,7 @@ A modular, customizable system for adding fade effects to elements on scroll
   transition: 
     opacity var(--fade-duration) var(--fade-timing) var(--fade-delay),
     transform var(--fade-duration) var(--fade-timing) var(--fade-delay),
-    visibility var(--fade-duration) var(--fade-timing) var(--fade-delay);
+    visibility 0s linear calc(var(--fade-duration) + 0.01s);
 }
 
 /* Visible State for All Fade Animations */
@@ -42,6 +42,10 @@ A modular, customizable system for adding fade effects to elements on scroll
   opacity: 1;
   visibility: visible;
   transform: translate(0, 0) scale(1) rotate(0deg);
+  transition: 
+    opacity var(--fade-duration) var(--fade-timing) var(--fade-delay),
+    transform var(--fade-duration) var(--fade-timing) var(--fade-delay),
+    visibility 0s linear 0s;
 }
 
 /* Fade Direction Variants */
@@ -169,15 +173,23 @@ A modular, customizable system for adding fade effects to elements on scroll
 /* For backwards compatibility with existing fade-in class */
 .fade-in {
   opacity: 0;
+  visibility: hidden;
   transform: translateY(var(--fade-distance));
+  will-change: opacity, transform;
   transition: 
     opacity var(--fade-duration) var(--fade-timing) var(--fade-delay),
-    transform var(--fade-duration) var(--fade-timing) var(--fade-delay);
+    transform var(--fade-duration) var(--fade-timing) var(--fade-delay),
+    visibility 0s linear calc(var(--fade-duration) + 0.01s);
 }
 
 .fade-in.visible {
   opacity: 1;
+  visibility: visible;
   transform: translateY(0);
+  transition: 
+    opacity var(--fade-duration) var(--fade-timing) var(--fade-delay),
+    transform var(--fade-duration) var(--fade-timing) var(--fade-delay),
+    visibility 0s linear 0s;
 }
 
 /* Responsive Adjustments */

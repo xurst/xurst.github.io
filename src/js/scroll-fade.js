@@ -62,7 +62,7 @@ class ScrollFade {
       ],
       
       // Staggered animations
-      enableStaggering: false,          // Enable staggered animations for child elements
+      enableStaggering: true,          // Enable staggered animations for child elements
       staggerSelector: null,            // Selector for elements to stagger within parent
       staggerDelay: 0.1,                // Delay between each staggered element (seconds)
       
@@ -471,6 +471,35 @@ document.addEventListener('DOMContentLoaded', () => {
     staggerDelay: 0.1,                   // Small delay between cards
     observerThreshold: 0.05,              // Lower threshold for better visibility
     debug: false                          // Set to true for debug logging
+  });
+  
+  // Add XHR interceptor to refresh elements after AJAX calls
+  // This ensures any dynamically loaded content gets fade effects applied
+  const originalXHR = window.XMLHttpRequest;
+  window.XMLHttpRequest = function() {
+    const xhr = new originalXHR();
+    const originalOnLoad = xhr.onload;
+    xhr.onload = function() {
+      if (originalOnLoad) {
+        originalOnLoad.apply(this, arguments);
+      }
+      // Small delay to ensure DOM is updated
+      setTimeout(() => {
+        if (window.scrollFade) {
+          window.scrollFade.refreshElements();
+        }
+      }, 150);
+    };
+    return xhr;
+  };
+  
+  // Also refresh on hash change (for single-page apps)
+  window.addEventListener('hashchange', () => {
+    setTimeout(() => {
+      if (window.scrollFade) {
+        window.scrollFade.refreshElements();
+      }
+    }, 150);
   });
 });
 

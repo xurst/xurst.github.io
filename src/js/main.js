@@ -180,13 +180,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="project-header">
                     <a href="${projectUrl}" target="_blank" data-repo-url="${repo.html_url}">
                       <span class="project-title-text">${repo.name}</span>
-                      <span class="github-icon"><i class="fab fa-github"></i> view repo</span>
+                      <span class="github-icon"><i class="fab fa-github"></i> go to repo</span>
                     </a>
                     <div class="project-tags">
                         <span class="project-category ${category}">${category}</span>
                         <span class="project-category ${projectType}">${projectType}</span>
                     </div>
-                    <span class="click-indicator"><i class="fas fa-arrow-right"></i> click to visit</span>
+                    <span class="click-indicator"><i class="fas fa-arrow-right"></i> click card: site | click title: repo</span>
                 </div>
                 <p>${description}</p>
                 <div class="last-updated">
@@ -386,8 +386,20 @@ document.addEventListener("DOMContentLoaded", () => {
     // Update current tab for next transition
     currentTab = newTab;
     
-    // Add the appropriate direction class
+    // Ensure the transition element is visible
+    const swipeTransition = aboutContent.querySelector('.swipe-transition') || document.createElement('div');
+    if (!aboutContent.querySelector('.swipe-transition')) {
+      swipeTransition.className = 'swipe-transition';
+      aboutContent.appendChild(swipeTransition);
+    }
+    
+    // Remove any existing direction classes
     aboutContent.classList.remove('swipe-right-to-left', 'swipe-left-to-right');
+    
+    // Force a reflow to ensure CSS transitions work properly
+    void aboutContent.offsetWidth;
+    
+    // Add the appropriate direction class
     aboutContent.classList.add(`swipe-${direction}`);
     
     // Create the transition
@@ -397,13 +409,16 @@ document.addEventListener("DOMContentLoaded", () => {
       if (newWrapper) {
         newWrapper.innerHTML = aboutContentData[newTab];
       } else {
-        aboutContent.innerHTML = aboutContentData[newTab];
+        aboutContent.innerHTML = `
+          <div class="content-wrapper">${aboutContentData[newTab]}</div>
+          <div class="swipe-transition"></div>
+        `;
       }
       
       // Remove the transition class after animation completes
       setTimeout(() => {
         aboutContent.classList.remove(`swipe-${direction}`);
-      }, 300); // Match this to the remaining CSS transition duration
+      }, 550); // Match this to the full CSS transition duration
     }, 250); // Time before content changes (about halfway through the transition)
   });
 

@@ -75,13 +75,13 @@
               <div class="project-header">
                 <a href="${projectUrl}" target="_blank" data-repo-url="${fullRepo.html_url}">
                   <span class="project-title-text">${fullRepo.name}</span>
-                  <span class="github-icon"><i class="fab fa-github"></i> view repo</span>
+                  <span class="github-icon"><i class="fab fa-github"></i> go to repo</span>
                 </a>
                 <div class="project-tags">
                   <span class="project-category ${category}">${category}</span>
                   <span class="project-category ${visitType}">${visitType}</span>
                 </div>
-                <span class="click-indicator"><i class="fas fa-arrow-right"></i> click to visit</span>
+                <span class="click-indicator"><i class="fas fa-arrow-right"></i> click card: site | click title: repo</span>
               </div>
               <p>${description}</p>
               <div class="last-updated">
