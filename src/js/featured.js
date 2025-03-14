@@ -65,6 +65,11 @@
           const delayClasses = ['', 'fade-delay-100', 'fade-delay-300', 'fade-delay-500'];
           const delayClass = delayClasses[topRepos.indexOf(repo) % delayClasses.length];
           
+          let clickIndicatorText = "click card: site | click title: repo";
+          if (visitType === "repo") {
+            clickIndicatorText = "click card: repo | click title: yes";
+          }
+
           const card = `
             <div class="project-card featured-project fade ${fadeDirection} ${delayClass}" data-name="${
               fullRepo.name
@@ -81,7 +86,7 @@
                   <span class="project-category ${category}">${category}</span>
                   <span class="project-category ${visitType}">${visitType}</span>
                 </div>
-                <span class="click-indicator"><i class="fas fa-arrow-right"></i> click card: site | click title: repo</span>
+                <span class="click-indicator"><i class="fas fa-arrow-right"></i> ${clickIndicatorText}</span>
               </div>
               <p>${description}</p>
               <div class="last-updated">

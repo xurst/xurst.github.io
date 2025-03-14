@@ -172,6 +172,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let description = repo.description || "no description available.";
     description = description.replace(/\s*\([^)]*\)\s*$/, "");
+    
+    let clickIndicatorText = "click card: site | click title: repo";
+    if (projectType === "repo") {
+      clickIndicatorText = "click card: repo | click title: yes";
+    }
 
     return `
             <div class="project-card fade ${fadeDirection} ${delayClass}" data-name="${repo.name}" data-date="${
@@ -186,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <span class="project-category ${category}">${category}</span>
                         <span class="project-category ${projectType}">${projectType}</span>
                     </div>
-                    <span class="click-indicator"><i class="fas fa-arrow-right"></i> click card: site | click title: repo</span>
+                    <span class="click-indicator"><i class="fas fa-arrow-right"></i> ${clickIndicatorText}</span>
                 </div>
                 <p>${description}</p>
                 <div class="last-updated">
