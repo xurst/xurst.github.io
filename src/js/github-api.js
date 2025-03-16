@@ -1,7 +1,29 @@
 (function() {
   const GITHUB_USERNAME = 'xurst';
-  // const API_BASE_URL = 'http://localhost:5504/api'; // Development
-  const API_BASE_URL = 'https://portfolio-backend-8t32.onrender.com/api'; // Production
+  
+  // Dynamic URL detection
+  const getCurrentOrigin = () => {
+    return window.location.origin; // Gets current site URL (works with any IP/domain)
+  };
+  
+  // Choose API URL based on environment
+  const getApiBaseUrl = () => {
+    const currentOrigin = getCurrentOrigin();
+    
+    // Development environments (local)
+    if (currentOrigin.includes('localhost') || 
+        currentOrigin.includes('127.0.0.1') ||
+        /^http:\/\/\d+\.\d+\.\d+\.\d+/.test(currentOrigin)) {
+      // If running locally, use the production API
+      return 'https://portfolio-backend-8t32.onrender.com/api';
+    }
+    
+    // Production (GitHub Pages)
+    return 'https://portfolio-backend-8t32.onrender.com/api';
+  };
+  
+  const API_BASE_URL = getApiBaseUrl();
+  console.log(`Using API URL: ${API_BASE_URL}`);
   
   async function fetchFromAPI(endpoint, options = {}) {
     const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint}`;
