@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: portfolio-backend
+    env: node
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: PORT
+        value: 10000
+    autoDeploy: true

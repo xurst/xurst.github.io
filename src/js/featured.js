@@ -4,7 +4,7 @@
   async function fetchTopProjects() {
     try {
       featuredGrid.innerHTML =
-        '<div class="featured-placeholder">loading featured projects...</div>';
+        '<div class="loading">loading featured projects...</div>';
 
       const topRepos = await GitHubAPI.getFeaturedRepos();
       
@@ -12,7 +12,7 @@
 
       if (filteredRepos.length === 0) {
         featuredGrid.innerHTML =
-          '<div class="featured-placeholder">no featured projects available</div>';
+          '<div class="error-message">no featured projects available</div>';
         return;
       }
 
@@ -142,7 +142,7 @@
     } catch (error) {
       console.error("Error fetching featured projects:", error);
       featuredGrid.innerHTML =
-        '<div class="featured-placeholder">failed to load featured projects. try refreshing the page or try again later.</div>';
+        '<div class="error-message">failed to load featured projects. try refreshing the page or try again later.</div>';
     }
   }
 

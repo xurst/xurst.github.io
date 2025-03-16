@@ -1,73 +1,29 @@
 (function() {
   const GITHUB_USERNAME = 'xurst';
-  const GITHUB_API_BASE = 'https://api.github.com';
+  const API_BASE_URL = 'http://localhost:3000/api'; // Development
+  // const API_BASE_URL = 'https://your-render-app-name.onrender.com/api'; // Production
   
-  const cache = {
-    set: function(key, data, ttl = 3600000) {
-      const item = {
-        data: data,
-        expiry: Date.now() + ttl
-      };
-      localStorage.setItem(`gh_cache_${key}`, JSON.stringify(item));
-    },
-    get: function(key) {
-      const item = localStorage.getItem(`gh_cache_${key}`);
-      if (!item) return null;
-      
-      const parsedItem = JSON.parse(item);
-      if (Date.now() > parsedItem.expiry) {
-        localStorage.removeItem(`gh_cache_${key}`);
-        return null;
-      }
-      
-      return parsedItem.data;
-    },
-    clear: function() {
-      Object.keys(localStorage)
-        .filter(key => key.startsWith('gh_cache_'))
-        .forEach(key => localStorage.removeItem(key));
-    }
-  };
+  // For development/testing only - will be removed in production
+  const isBrowserEnvironment = typeof window !== 'undefined';
+  const isDevEnvironment = isBrowserEnvironment && 
+    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
   
-  async function fetchFromGitHub(endpoint, options = {}) {
-    const url = endpoint.startsWith('http') ? endpoint : `${GITHUB_API_BASE}${endpoint}`;
-    const cacheKey = endpoint.replace(/[^a-zA-Z0-9]/g, '_');
-    
-    const cachedData = cache.get(cacheKey);
-    if (cachedData) {
-      console.log(`using cached data for ${endpoint}`);
-      return cachedData;
-    }
-    
-    const headers = new Headers({
-      'Accept': 'application/vnd.github.v3+json'
-    });
-    
-    const requestOptions = {
-      ...options,
-      headers
-    };
+  // Use the appropriate API URL based on environment
+  const apiBaseUrl = isDevEnvironment 
+    ? 'http://localhost:3000/api' 
+    : 'https://your-render-app-name.onrender.com/api';
+  
+  async function fetchFromAPI(endpoint, options = {}) {
+    const url = endpoint.startsWith('http') ? endpoint : `${apiBaseUrl}${endpoint}`;
     
     try {
-      const response = await fetch(url, requestOptions);
-      
-      if (response.status === 403) {
-        const rateLimitRemaining = response.headers.get('X-RateLimit-Remaining');
-        if (rateLimitRemaining === '0') {
-          const resetTime = new Date(parseInt(response.headers.get('X-RateLimit-Reset')) * 1000);
-          throw new Error(`GitHub API rate limit exceeded. Resets at ${resetTime.toLocaleTimeString()}`);
-        }
-      }
+      const response = await fetch(url, options);
       
       if (!response.ok) {
-        throw new Error(`GitHub API error: ${response.status} - ${response.statusText}`);
+        throw new Error(`API error: ${response.status} - ${response.statusText}`);
       }
       
-      const data = await response.json();
-      
-      cache.set(cacheKey, data);
-      
-      return data;
+      return await response.json();
     } catch (error) {
       console.error(`Error fetching ${url}:`, error);
       throw error;
@@ -79,7 +35,7 @@
     
     while (retries < maxRetries) {
       try {
-        return await fetchFromGitHub(endpoint, options);
+        return await fetchFromAPI(endpoint, options);
       } catch (error) {
         retries++;
         
@@ -95,25 +51,21 @@
   }
   
   async function getRepoLanguages(repoName) {
-    return fetchWithRetry(`/repos/${GITHUB_USERNAME}/${repoName}/languages`);
+    return fetchWithRetry(`/repos/${repoName}/languages`);
   }
   
   async function getFeaturedRepos() {
-    const repos = await fetchWithRetry(`/users/${GITHUB_USERNAME}/repos`);
-    return repos
-      .filter(repo => !repo.fork && repo.name !== "xurst.github.io")
-      .sort((a, b) => b.stargazers_count - a.stargazers_count)
-      .slice(0, 4);
+    return fetchWithRetry('/featured');
   }
   
   window.GitHubAPI = {
     username: GITHUB_USERNAME,
-    fetchFromGitHub,
+    fetchFromAPI,
     fetchWithRetry,
-    getUserRepos: () => fetchWithRetry(`/users/${GITHUB_USERNAME}/repos`),
-    getRepoDetails: (repoName) => fetchWithRetry(`/repos/${GITHUB_USERNAME}/${repoName}`),
+    getUserRepos: () => fetchWithRetry('/user/repos'),
+    getRepoDetails: (repoName) => fetchWithRetry(`/repos/${repoName}`),
     getRepoLanguages,
     getFeaturedRepos,
-    clearCache: () => cache.clear()
+    clearCache: () => fetchFromAPI('/clear-cache', { method: 'POST' })
   };
 })();
