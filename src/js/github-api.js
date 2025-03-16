@@ -1,7 +1,7 @@
 (function() {
   const GITHUB_USERNAME = 'xurst';
-  const API_BASE_URL = 'http://localhost:3000/api'; // Development
-  // const API_BASE_URL = 'https://your-render-app-name.onrender.com/api'; // Production
+  // const API_BASE_URL = 'http://localhost:5504/api'; // Development
+  const API_BASE_URL = 'https://portfolio-backend-8t32.onrender.com/api'; // Production
   
   // For development/testing only - will be removed in production
   const isBrowserEnvironment = typeof window !== 'undefined';
@@ -10,8 +10,8 @@
   
   // Use the appropriate API URL based on environment
   const apiBaseUrl = isDevEnvironment 
-    ? 'http://localhost:3000/api' 
-    : 'https://your-render-app-name.onrender.com/api';
+    ? 'http://localhost:5504/api' 
+    : 'https://portfolio-backend-8t32.onrender.com/api';
   
   async function fetchFromAPI(endpoint, options = {}) {
     const url = endpoint.startsWith('http') ? endpoint : `${apiBaseUrl}${endpoint}`;
