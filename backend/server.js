@@ -4,12 +4,20 @@ const cors = require('cors');
 const axios = require('axios');
 
 const app = express();
-const PORT = process.env.PORT || 5504;
+const PORT = process.env.PORT || 3000;
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const GITHUB_USERNAME = 'xurst'; // Replace with variable if needed
 
+// CORS configuration - updated to allow xurst.github.io
+const corsOptions = {
+  origin: ['https://xurst.github.io', 'http://localhost:5504', 'http://127.0.0.1:5504'],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Cache setup (in-memory for simplicity)
@@ -122,6 +130,11 @@ app.post('/api/clear-cache', (req, res) => {
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
+});
+
+// Root endpoint for easy testing
+app.get('/', (req, res) => {
+  res.send('Portfolio API server is running. Available endpoints: /api/user/repos, /api/featured, /api/repos/:repoName, /api/repos/:repoName/languages');
 });
 
 // Serve static files for testing
