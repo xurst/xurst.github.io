@@ -13,6 +13,7 @@
     // Development environments (local)
     if (currentOrigin.includes('localhost') || 
         currentOrigin.includes('127.0.0.1') ||
+        currentOrigin.includes('10.0.0.72') ||
         /^http:\/\/\d+\.\d+\.\d+\.\d+/.test(currentOrigin)) {
       // If running locally, use the production API
       return 'https://portfolio-backend-8t32.onrender.com/api';

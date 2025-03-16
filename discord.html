@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>discord</title>
   <style>
     * {
@@ -20,14 +21,17 @@
       align-items: center;
       overflow-x: hidden;
       position: relative;
+      padding: 20px;
     }
     .container {
       text-align: center;
+      max-width: 90%;
     }
     .discord-info {
       font-size: 2rem;
       font-weight: bold;
       color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     }
     .back-button {
       position: absolute;
@@ -40,17 +44,41 @@
       border-radius: 10px;
       font-size: 1.5rem;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: all 0.3s ease;
+      outline: none;
     }
     .back-button:hover {
       background-color: #555;
+    }
+    
+    /* Media Queries */
+    @media (max-width: 768px) {
+      .discord-info {
+        font-size: 1.8rem;
+      }
+      .back-button {
+        padding: 15px 30px;
+        font-size: 1.2rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .discord-info {
+        font-size: 1.5rem;
+      }
+      .back-button {
+        padding: 12px 25px;
+        font-size: 1rem;
+        top: 15px;
+        left: 15px;
+      }
     }
   </style>
 </head>
 <body>
 <button class="back-button" onclick="window.history.back();">go back to portfolio</button>
 <div class="container">
-  <p class="discord-info">my discord username is: xurst</p>
+  <p class="discord-info">discord username: xurst</p>
 </div>
 </body>
 </html>

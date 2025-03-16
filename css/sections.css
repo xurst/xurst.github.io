@@ -79,7 +79,7 @@
 .social-dropdown {
     display: none;
     position: fixed;
-    bottom: 3px;
+    bottom: 182px;
     right: 5px;
     width: fit-content;
     z-index: 9999;
@@ -109,9 +109,9 @@
     z-index: 9999;
     border-radius: 4px;
     padding: 8px 0;
-    bottom: 100%;
+    top: 100%; /* Changed from bottom: 100% to top: 100% */
     right: 0;
-    margin-bottom: 5px;
+    margin-top: 5px; /* Changed from margin-bottom: 5px to margin-top: 5px */
 }
 
 .social-dropdown-content a {

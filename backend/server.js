@@ -6,7 +6,7 @@ const axios = require('axios');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const GITHUB_USERNAME = 'xurst'; // Replace with variable if needed
+const GITHUB_USERNAME = 'xurst';
 
 // CORS configuration - updated to allow xurst.github.io
 const corsOptions = {
