@@ -10,7 +10,7 @@ const GITHUB_USERNAME = 'xurst'; // Replace with variable if needed
 
 // CORS configuration - updated to allow xurst.github.io
 const corsOptions = {
-  origin: ['https://xurst.github.io', 'http://localhost:5504', 'http://127.0.0.1:5504'],
+  origin: ['https://xurst.github.io', 'http://localhost:5504', 'http://127.0.0.1:5504', 'http://10.0.0.72:5504'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204

@@ -55,7 +55,7 @@
   transform: scale(1.05);
 }
 
-/* Add subtle pulse to icons */
+/* Add subtle pulse to icons only (not affecting text) */
 @keyframes starPulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.2); }
@@ -65,16 +65,32 @@
 .project-card:hover .project-languages i.fa-star {
   animation: starPulse 1.5s ease-in-out infinite;
   color: #FFC107;
+  /* Isolate the animation to the icon only */
+  display: inline-block;
 }
 
 .project-card:hover .last-updated i.fa-history {
   animation: starPulse 1.5s ease-in-out infinite;
   color: #4CAF50;
+  /* Isolate the animation to the icon only */
+  display: inline-block;
 }
 
 .project-card:hover .project-languages i.fa-code {
   animation: starPulse 1.5s ease-in-out infinite;
   color: #FF9800;
+  /* Isolate the animation to the icon only */
+  display: inline-block;
+}
+
+/* Make sure text doesn't change on hover */
+.project-languages span,
+.last-updated span {
+  /* Prevent any inherited transforms or animations */
+  transform: none !important;
+  animation: none !important;
+  /* Ensure consistent display */
+  display: inline-block;
 }
 
 /* Add subtle animation to category tags */
